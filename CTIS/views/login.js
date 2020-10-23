@@ -64,13 +64,13 @@ const tempData = [
 ]
 
 const login = () => {
-    let validate = true; 
+    let validate = false; 
     tempData.forEach(element => {
         const data = element;
         if (data.username === elements.username.value && data.password === elements.password.value){
             alert("Login successfully with username " + data.username);
             checkUserType(data);
-            validate = false;
+            validate = true;
         }   
     });
 
