@@ -71,6 +71,7 @@ const login = () => {
             checkUserType(data);
         } else {
             alert("Failed to login !");
+            break;
         }
     });
     
