@@ -1,0 +1,154 @@
+#wrapper{
+  overflow: hidden;
+}
+
+header{
+  padding-top: 30px;
+  justify-content: space-between;
+}
+.mx-auto img{
+  height: 70px;
+}
+
+.fa-user-circle{
+  font-size: 30px !important;
+}
+
+#profile-name{
+  padding: 2px 5px;
+  background-color: transparent !important;
+}
+
+#accountMenu{
+  animation-name: menuSlideIn;
+  -webkit-animation-name: menuSlideIn;
+  animation-duration: 0.5s;
+}
+
+.btn:hover{
+  /* background-color: #f8ecf8; */
+  background-color: #b3b3b3;
+  box-shadow:  0 0 8px rgba(114, 96, 153, 0.6);
+}
+
+
+.btn-primary{
+  background-color: #dba2dd !important;
+  background-image: linear-gradient(to right bottom, #dba2dd, #803082) !important;
+  border-color: #dba2dd !important;
+  transition: opacity 0.5s;
+}
+
+.btn-primary:not(:disabled):not(.disabled):focus{
+  box-shadow: 0 0 5px black;
+}
+
+.btn-primary:hover{
+    opacity: 0.5;
+    box-shadow:  0 0 10px rgba(58, 49, 77, 0.6) !important;
+}
+
+.loader {
+  margin: 5rem auto;
+  text-align: center; 
+}
+
+.loader img{
+  height: 5.5rem;
+  width: 5.5rem;
+}
+
+@keyframes menuSlideIn{
+  from {opacity: 0;
+    transform: translateX(1rem);
+  }
+  to {opacity: 1;
+    transform:translateX(0rem);
+  }
+}
+
+@-webkit-keyframes menuSlideIn {
+  from {opacity: 0;
+    transform: translateX(1rem);
+  }
+  to {opacity: 1;
+    transform:translateX(0rem);
+  }
+}
+
+#sidebar-wrapper{
+min-height: 100vh;
+margin-left: -15rem;
+-webkit-transition: margin .25s ease-out;
+transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+padding: 0.875rem 1.25rem;
+font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+width: 15rem;
+}
+
+#page-content-wrapper {
+min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+margin-left: 0;
+}
+
+
+a.disabled{
+  color: gray;
+  pointer-events: none;
+}
+
+a.highlight{
+  color: #c793c9;
+  font-weight: 900;
+  pointer-events: none;
+}
+
+.msg_successfull{
+  background-color: #adebad;
+  color: #196619;
+  border: 2px solid #196619;
+  font-weight: 700;
+  width: 100%;
+  padding: 1rem;
+}
+
+.msg_error{
+  background-color: #ff9999;
+  color: #800000;
+  border: 2px solid #800000;
+  font-weight: 700;
+  width: 100%;
+  padding: 1rem;
+}
+
+.form-control:focus {
+  outline: none !important;
+  border: 3px solid #55c57a;
+}
+.form-control:focus:invalid {
+  border: 3px solid #ff7730;
+}
+  
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}

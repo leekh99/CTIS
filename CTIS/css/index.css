@@ -1,0 +1,54 @@
+.search .input-group, .search, .search .form-group{
+    border-radius: 10rem;
+}
+
+.search .input-group .form-control{
+    border-top-left-radius: 10rem;
+    border-bottom-left-radius: 10rem;
+}
+
+.search input{
+    padding: 1rem 3rem;
+}
+
+#btnSearch{
+    border-top-right-radius: 10rem;
+    border-bottom-right-radius: 10rem;
+}
+
+#patient-details{
+    padding-top: 2rem;
+}
+
+.patient-list .card{
+    margin-bottom: 30px;
+}
+
+/* .patient-details aside{
+    padding-left: 20px;
+   
+} */
+
+/* .filter .card{
+    background-color: #e3e3e3;
+    padding: 20px;
+    min-height: 15rem;
+} */
+
+
+#btnTop {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 60px;
+    z-index: 99;
+    font-size: 30px;
+    width: 50px;
+  }
+
+
+ 
+  
+@media only screen and (max-width: 768px) {
+
+} 
