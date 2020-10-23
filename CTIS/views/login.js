@@ -53,6 +53,13 @@ const tempData = [
         password : "qwe",
         patientType : "suspected",
         symptoms : "loss of speech"
+    }, 
+    {
+        Type : "CentreOfficer",
+        username : "adam",
+        name : "bond",
+        password : "qwe",
+        position : "superAdmin"
     }
 ]
 
@@ -80,6 +87,10 @@ const checkUserType = (user) => {
 
             case "Tester":
                 window.location = windowUrl(`Tester/index.html?user=${user.username}&check=` + elements.checkRememberUser.checked);
+                break;
+
+            case "superAdmin":
+                window.location = windowUrl(`superAdmin/addManager.html?user=${user.username}&check=` + elements.checkRememberUser.checked);
                 break;
         }
     } else if (user.Type === "Patient"){
