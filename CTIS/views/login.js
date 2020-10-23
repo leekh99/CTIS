@@ -69,12 +69,9 @@ const login = () => {
         if (data.username === elements.username.value && data.password === elements.password.value){
             alert("Login successfully with username " + data.username);
             checkUserType(data);
-        } else {
-            alert("Failed to login !");
-            break;
-        }
+        }   
     });
-    
+    alert("Failed to login !");
 }
 
 const checkUserType = (user) => {
