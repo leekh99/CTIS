@@ -15,7 +15,6 @@ const elements = {
 
    // Set a callback to run when the Google Visualization API is loaded.
    google.charts.setOnLoadCallback(drawPatientChart);
-   google.charts.setOnLoadCallback(drawResultChart);
 
    // Callback that creates and populates a data table,
    // instantiates the pie chart, passes in the data and

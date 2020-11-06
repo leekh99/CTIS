@@ -67,6 +67,7 @@ const login = () => {
     let validate = false; 
     tempData.forEach(element => {
         const data = element;
+        console.log(element);
         if (data.username === elements.username.value && data.password === elements.password.value){
             alert("Login successfully with username " + data.username);
             checkUserType(data);
