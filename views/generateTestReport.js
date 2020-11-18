@@ -44,6 +44,7 @@ const elements = {
      barchart.draw(data,options);
    }
 
+  
 
 
 
