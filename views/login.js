@@ -51,7 +51,7 @@
                 break;
 
             case "tester":
-                window.location = windowUrl(`Tester/index.html?&check=` + elements.checkRememberUser.checked);
+                window.location = windowUrl(`Tester/index.php?&check=` + elements.checkRememberUser.checked);
                 break;  
 
             case "superAdmin":

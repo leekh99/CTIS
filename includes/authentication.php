@@ -1,6 +1,17 @@
-<?php 
+<script>
+    const loginName = document.getElementById('profile-name');
 
-session_start();
+    const checkLogin = (username) => {
+        const user = username;
+
+
+        if (user)
+            loginName.innerHTML = username;
+    }
+</script>
+
+
+<?php 
 
 if (isset($_SESSION['username'])){
     $username = $_SESSION['username'];
@@ -9,6 +20,4 @@ if (isset($_SESSION['username'])){
         checkLogin('$username');
     </script>";
 }
-
-
  ?>
