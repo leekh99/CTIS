@@ -42,10 +42,10 @@
         <!-- side bar -->
         <aside class="bg-light border-right " id="sidebar-wrapper">
             <div class="list-group list-group-flush">
-                <a href="index.html" class="list-group-item list-group-item-action bg-light">Home</a>
+                <a href="index.php" class="list-group-item list-group-item-action bg-light">Home</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light highlight">Record New Test</a>
-                <a href="updateTest.html" class="list-group-item list-group-item-action bg-light">Update Test Result</a>
-                <a href="viewTestReport.html" class="list-group-item list-group-item-action bg-light">Generate Test Report</a>
+                <a href="updateTest.php" class="list-group-item list-group-item-action bg-light">Update Test Result</a>
+                <a href="viewTestReport.php" class="list-group-item list-group-item-action bg-light">Generate Test Report</a>
             </div>
         </aside>
 
