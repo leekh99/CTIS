@@ -47,7 +47,7 @@
         console.log("redirecting ...");
         switch(position){
             case "manager":
-                window.location = windowUrl(`Manager/viewManagerTestReport.html?check=` + elements.checkRememberUser.checked);
+                window.location = windowUrl(`Manager/viewManagerTestReport.php?check=` + elements.checkRememberUser.checked);
                 break;
 
             case "tester":

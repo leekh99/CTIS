@@ -1,5 +1,4 @@
 <?php include "../includes/db.php" ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,7 +97,6 @@
 
         </script>
 
-    <script type="text/javascript" src="../views/tester_chkLogin.js"></script>
     <script type="text/javascript" src="../views/index.js"></script>
     <?php include "../includes/authentication.php"?>
 
