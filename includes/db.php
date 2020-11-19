@@ -2,7 +2,7 @@
 $db['db_host'] = "localhost";
 $db['db_user'] = "root";
 $db['db_pass'] = "";
-$db['db_name'] = "ctis";
+$db['db_name'] = "ctisv2";
 
 foreach($db as $key => $value){
     define(strtoupper($key),$value);
@@ -22,11 +22,28 @@ function addManager(){
     global $connection;
     $connection->query($queryUser);
 
-    $queryCentreOfficer = "INSERT INTO centreofficer(username, position, workplace)";
-    $queryCentreOfficer .= " VALUES('{$username}','manager', 'null')";
+    $queryCentreOfficer = "INSERT INTO centreofficer(username, position)";
+    $queryCentreOfficer .= " VALUES('{$username}','manager')";    
+    $result = $connection->query($queryCentreOfficer);
 
-    $connection->query($queryCentreOfficer);
-    echo $connection->error;
+
+    $connection->error;
     $connection->close();
+
+    return $result;
 }
+
+
+function login($username, $password){
+    global $connection;
+
+    $query = "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
+    $result = mysqli_query($connection, $query);
+
+    while ($row = mysqli_fetch_assoc($result)){
+        return $row['username'];
+    }
+
+}
+
 ?>

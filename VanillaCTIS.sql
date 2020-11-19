@@ -38,12 +38,12 @@ CREATE TABLE `centreofficer` (
 -- Dumping data for table `centreofficer`
 --
 
-INSERT INTO `centreofficer` (`username`, `position`, `workplace`) VALUES
-('brownbutt', 'manager', 'TC02'),
-('leekeathong', 'tester', 'TC01'),
-('manager', 'manager', 'TC01'),
-('manager2', 'manager', 'TC02'),
-('tester', 'tester', 'TC01');
+-- INSERT INTO `centreofficer` (`username`, `position`, `workplace`) VALUES
+-- ('brownbutt', 'manager', 'TC02'),
+-- ('leekeathong', 'tester', 'TC01'),
+-- ('manager', 'manager', 'TC01'),
+-- ('manager2', 'manager', 'TC02'),
+-- ('tester', 'tester', 'TC01');
 
 -- --------------------------------------------------------
 
@@ -67,9 +67,9 @@ CREATE TABLE `covidtest` (
 -- Dumping data for table `covidtest`
 --
 
-INSERT INTO `covidtest` (`testID`, `testDate`, `status`, `result`, `resultDate`, `recipient`, `tester`, `kitID`, `location`) VALUES
-('CT01', '2020-10-16', 'pending', 'null', '0000-00-00', 'hamyiwah', 'leekeathong', 'tk01', 'TC02'),
-('CT02', '2020-10-17', 'pending', 'null', '0000-00-00', 'rtd', 'brownbutt', 'tk01', 'TC02');
+-- INSERT INTO `covidtest` (`testID`, `testDate`, `status`, `result`, `resultDate`, `recipient`, `tester`, `kitID`, `location`) VALUES
+-- ('CT01', '2020-10-16', 'pending', 'null', '0000-00-00', 'hamyiwah', 'leekeathong', 'tk01', 'TC02'),
+-- ('CT02', '2020-10-17', 'pending', 'null', '0000-00-00', 'rtd', 'brownbutt', 'tk01', 'TC02');
 
 -- --------------------------------------------------------
 
@@ -87,11 +87,11 @@ CREATE TABLE `patient` (
 -- Dumping data for table `patient`
 --
 
-INSERT INTO `patient` (`username`, `patientType`, `symptoms`) VALUES
-('hamyiwah', 'Suspected', 'Diabetes, fever'),
-('patient', 'returnee', 'Cough, Flu'),
-('patient2', 'returnee', 'Fever, Cough'),
-('rtd', 'Infected', 'High Fever, Vomiting');
+-- INSERT INTO `patient` (`username`, `patientType`, `symptoms`) VALUES
+-- ('hamyiwah', 'Suspected', 'Diabetes, fever'),
+-- ('patient', 'returnee', 'Cough, Flu'),
+-- ('patient2', 'returnee', 'Fever, Cough'),
+-- ('rtd', 'Infected', 'High Fever, Vomiting');
 
 -- --------------------------------------------------------
 
@@ -108,9 +108,9 @@ CREATE TABLE `testcentre` (
 -- Dumping data for table `testcentre`
 --
 
-INSERT INTO `testcentre` (`centreID`, `centreName`) VALUES
-('TC01', 'SJMC'),
-('TC02', 'Columbia Asia');
+-- INSERT INTO `testcentre` (`centreID`, `centreName`) VALUES
+-- ('TC01', 'SJMC'),
+-- ('TC02', 'Columbia Asia');
 
 -- --------------------------------------------------------
 
@@ -129,12 +129,12 @@ CREATE TABLE `testkit` (
 -- Dumping data for table `testkit`
 --
 
-INSERT INTO `testkit` (`kitID`, `testName`, `availableStock`, `location`) VALUES
-('tk01', 'Antigen Test', 15, 'TC01'),
-('tk02', 'Antigen Test', 50, 'TC02'),
-('tk03', 'PCR', 20, 'TC01'),
-('tk04', 'COVID-19 IgM/IgG Duo', 1, 'TC01'),
-('tk05', 'Rapid Test Kit', 0, 'TC01');
+-- INSERT INTO `testkit` (`kitID`, `testName`, `availableStock`, `location`) VALUES
+-- ('tk01', 'Antigen Test', 15, 'TC01'),
+-- ('tk02', 'Antigen Test', 50, 'TC02'),
+-- ('tk03', 'PCR', 20, 'TC01'),
+-- ('tk04', 'COVID-19 IgM/IgG Duo', 1, 'TC01'),
+-- ('tk05', 'Rapid Test Kit', 0, 'TC01');
 
 -- --------------------------------------------------------
 
@@ -152,16 +152,16 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`username`, `password`, `name`) VALUES
-('brownbutt', 'nom', 'Chng Jian Luk'),
-('hamyiwah', 'kanninna', 'Kam Yik Wah'),
-('leekeathong', 'shiden', 'Lee Keat Hong'),
-('manager', 'manager', 'manager A'),
-('manager2', 'manager2', 'manager B'),
-('patient', 'patient', 'patient A'),
-('patient2', 'patient2', 'patient B'),
-('rtd', 'zululwarrior', 'Choo Jia Duan'),
-('tester', 'tester', 'tester A');
+-- INSERT INTO `user` (`username`, `password`, `name`) VALUES
+-- ('brownbutt', 'nom', 'Chng Jian Luk'),
+-- ('hamyiwah', 'kanninna', 'Kam Yik Wah'),
+-- ('leekeathong', 'shiden', 'Lee Keat Hong'),
+-- ('manager', 'manager', 'manager A'),
+-- ('manager2', 'manager2', 'manager B'),
+-- ('patient', 'patient', 'patient A'),
+-- ('patient2', 'patient2', 'patient B'),
+-- ('rtd', 'zululwarrior', 'Choo Jia Duan'),
+-- ('tester', 'tester', 'tester A');
 
 --
 -- Indexes for dumped tables

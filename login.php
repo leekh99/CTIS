@@ -1,3 +1,5 @@
+<?php include "./includes/db.php" ?>
+<?php include "./includes/authentication.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,26 +23,28 @@
                     <h1>Welcome to Covid Testing Information System (CTIS)</h1>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="login.php" method="POST">
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <i class="fas fa-user input-group-text"></i>
                             </div>                          
-                            <input type="text" class="form-control" id="username" placeholder="username">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="username">
                             
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <i class="fas fa-key input-group-text"></i>
                             </div>
-                            <input type="password" class="form-control" id="password" placeholder="password">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="password">
                         </div>
                         <div class="row align-items-center remember">
                             <input type="checkbox" id="rememberUser" onclick="checkRememberUser()">Remember User
                         </div>
 
+
+
                         <div class="d-flex justify-content-center">
-                            <button type="button" name="button" class="btn btn-primary" onclick="login()">Login</button>
+                            <button type="submit" name="btnLogin" class="btn btn-primary">Login</button>
                         </div>
                     </form>
                 </div>
@@ -56,5 +60,7 @@
     </main>
     
     <script type="text/javascript" src="./views/login.js"></script>
+    <?php include "./php/login.php" ?>
+    
 </body>
 </html>

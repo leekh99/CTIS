@@ -1,11 +1,9 @@
 const loginName = document.getElementById('profile-name');
 
-const checkLogin = () => {
-    const user = JSON.parse(localStorage.getItem('loginUser'));
+const checkLogin = (username) => {
+    const user = username;
 
 
     if (user)
-        loginName.innerHTML = user.user;
+        loginName.innerHTML = username;
 }
-
-checkLogin();
