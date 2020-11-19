@@ -56,9 +56,9 @@
 
         <div class="container">
             <header>
-                <form class="search shadow">
+                <form action="" class="search shadow" method="POST">
                     <div class="input-group form-group">
-                        <input type="text" class="form-control" placeholder="Search Patients ... ">
+                        <input type="text" class="form-control" placeholder="Search Patients with username ... ">
                         <div class="input-group-prepend">
                             <button class="form-control btn btn-primary" id="btnSearch"><i class="fas fa-search"></i>&nbsp; SEARCH</button>
                         </div>

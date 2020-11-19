@@ -19,6 +19,7 @@ if (isset($_POST['btnLogin'])){
                 $username = $row['username'];
                 $position = $row['position'];
 
+                $_SESSION['position']= $position;
                 echo "<script>login(true, '$username', '$position');</script>";
             }
         } else {
@@ -31,7 +32,7 @@ if (isset($_POST['btnLogin'])){
                     $patientType = $row['patientType'];
                     $symptoms = $row['symptoms'];
                                         
-
+                   $_SESSION['position']= 'patient';
                    echo "<script>login(true, '$username', 'patient');</script>";
                 }
             }

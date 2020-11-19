@@ -96,10 +96,10 @@ const renderPatient = (patient, testerName) => {
         </ul>
         <div class="card-footer">
             <div class="d-flex flex-row justify-content">
-                <a href="recordTest.html?patientUsername=${patient.username}&patientType=${patient.patientType}" class="card-link btn btn-primary shadow">
+                <a href="recordTest.php?patientUsername=${patient.username}&patientType=${patient.patientType}" class="card-link btn btn-primary shadow">
                     Record New Test
                 </a>
-                <a href="updateTest.html" class="card-link btn btn-primary shadow">Update Test Result</a>
+                <a href="updateTest.php" class="card-link btn btn-primary shadow">Update Test Result</a>
             </div>
         </div>
     </div>`;
@@ -109,7 +109,7 @@ const renderPatient = (patient, testerName) => {
 }
 
 const renderResults = (patient) => {
-
+    
 }
 
 

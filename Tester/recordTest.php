@@ -68,7 +68,7 @@
                     <label class="switch">
                         <input id="chkForm" type="checkbox" data-toggle="collapse" href="#account-form" onclick="formToggle()">
                         <span class="slider round"></span>
-                      </label>
+                      </label>  
                 </h5>
 
 
