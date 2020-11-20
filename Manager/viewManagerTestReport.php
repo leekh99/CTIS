@@ -1,3 +1,4 @@
+<?php include "../includes/db.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +31,7 @@
                 </button>
                  <!-- account menu -->
                 <aside class="collapse dropdown-menu dropdown-menu-right bg-light" id="accountMenu">
-                    <a href="../login.html" class="dropdown-item bg-light">Logout</a>
+                    <a href="../login.php" class="dropdown-item bg-light">Logout</a>
                 </aside>
             </div>
 
@@ -43,21 +44,21 @@
         <aside class="bg-light border-right " id="sidebar-wrapper">
             <div class="list-group list-group-flush">
                 <a href="#" class="list-group-item list-group-item-action bg-light highlight">Home</a>
-                <a href="registerTestCentre.html" class="list-group-item list-group-item-action bg-light">Register Test Centre</a>
-                <a href="registerTester.html" class="list-group-item list-group-item-action bg-light">Register Tester</a>
+                <a href="registerTestCentre.php" class="list-group-item list-group-item-action bg-light">Register Test Centre</a>
+                <a href="registerTester.php" class="list-group-item list-group-item-action bg-light">Register Tester</a>
                 <li>
                     <a href="#" data-toggle="collapse" data-target="#manageTestKit" class="list-group-item list-group-item-action bg-light" id="navTestKit">
                         Manage Test Kit Stock &emsp;<i class="fas fa-angle-down" id="navArrow"></i>
                     </a>
                     <ul id="manageTestKit" class="collapse list-group">
                         <li>
-                            <a href="viewAllTestKit.html" class="list-group-item list-group-item-action bg-light">&emsp; View All Test Kit</a>
+                            <a href="viewAllTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; View All Test Kit</a>
                         </li>
                         <li>
-                            <a href="addTestKit.html" class="list-group-item list-group-item-action bg-light">&emsp; Add Test Kit</a>
+                            <a href="addTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; Add Test Kit</a>
                         </li>
                         <li>
-                            <a href="updateTestKit.html" class="list-group-item list-group-item-action bg-light">&emsp; Update Test Kit</a>
+                            <a href="updateTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; Update Test Kit</a>
                         </li>
                     </ul>
                 </li>
@@ -250,6 +251,7 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="../views/js_admin/viewManagerTestReport.js"></script>
+    <?php include "../includes/authentication.php"?>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

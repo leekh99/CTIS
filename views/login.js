@@ -32,9 +32,13 @@
         }
     }
 
-    const login = (validate, username, position) => {
+    const login = (validate, username, position, testCentre) => {
         if (validate){
             alert("Login successfully with username " + username);
+            if (position === "manager" && testCentre == null){
+                window.location.href = "http://localhost/CTIS/Manager/registerTestCentre.php";
+                position = "";
+            }
             checkUserType(position);
         }   
 
@@ -47,7 +51,7 @@
         console.log("redirecting ...");
         switch(position){
             case "manager":
-                window.location = windowUrl(`Manager/viewManagerTestReport.php?check=` + elements.checkRememberUser.checked);
+                window.location.href = windowUrl(`Manager/viewManagerTestReport.php?check=` + elements.checkRememberUser.checked);
                 break;
 
             case "tester":

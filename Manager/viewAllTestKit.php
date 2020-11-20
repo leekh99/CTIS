@@ -1,9 +1,10 @@
+<?php include "../includes/db.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CTIS - Register Tester</title>
+    <title>CTIS - View All Test</title>
 
     <!-- setup -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -30,7 +31,7 @@
                 </button>
                  <!-- account menu -->
                 <aside class="collapse dropdown-menu dropdown-menu-right bg-light" id="accountMenu" >
-                    <a href="../login.html" class="dropdown-item bg-light">Logout</a>
+                    <a href="../login.php" class="dropdown-item bg-light">Logout</a>
                 </aside>
             </div>
 
@@ -41,22 +42,22 @@
         <!-- side bar -->
         <aside class="bg-light border-right " id="sidebar-wrapper">
             <div class="list-group list-group-flush">
-                <a href="viewManagerTestReport.html" class="list-group-item list-group-item-action bg-light">Home</a>
-                <a href="registerTestCentre.html" class="list-group-item list-group-item-action bg-light">Register Test Centre</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light highlight">Register Tester Account</a>
+                <a href="viewManagerTestReport.php" class="list-group-item list-group-item-action bg-light">Home</a>
+                <a href="registerTestCentre.php" class="list-group-item list-group-item-action bg-light">Register Test Centre</a>
+                <a href="registerTester.php" class="list-group-item list-group-item-action bg-light">Register Tester Account</a>
                 <li>
                     <a href="#" data-toggle="collapse" data-target="#manageTestKit" class="list-group-item list-group-item-action bg-light" id="navTestKit">
                         Manage Test Kit Stock &emsp;<i class="fas fa-angle-down" id="navArrow"></i>
                     </a>
                     <ul id="manageTestKit" class="collapse list-group">
                         <li>
-                            <a href="viewAllTestKit.html" class="list-group-item list-group-item-action bg-light">&emsp; View All Test Kit</a>
+                            <a href="#" class="list-group-item list-group-item-action bg-light highlight">&emsp; View All Test Kit</a>
                         </li>
                         <li>
-                            <a href="addTestKit.html" class="list-group-item list-group-item-action bg-light">&emsp; Add Test Kit</a>
+                            <a href="addTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; Add Test Kit</a>
                         </li>
                         <li>
-                            <a href="updateTestKit.html" class="list-group-item list-group-item-action bg-light">&emsp; Update Test Kit</a>
+                            <a href="updateTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; Update Test Kit</a>
                         </li>
                     </ul>
                 </li>
@@ -66,57 +67,55 @@
         <div class="container">
              <!-- breadcrumb navigation -->
              <header>
-                <h2>Register Tester Account &nbsp; <i class="fas fa-users"></i></h2>
+                <h2><span class="font-weight-bold">All</span>  Test Kit &nbsp; <i class="fas fa-medkit"></i> </h2>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="viewManagerTestReport.html">Home</a></li>
-                        <li class="breadcrumb-item" aria-current="page"><a class="breadcrumb-item disabled" href="#">Register Tester Account</a></li>
+                        <li class="breadcrumb-item" aria-current="page"><a class="breadcrumb-item disabled" href="#">Manage Test Kit Stock</a></li>
+                        <li class="breadcrumb-item" aria-current="page"><a class="breadcrumb-item disabled" href="#">View All Test Kit</a></li>
                     </ol>
                 </nav>
             </header>
 
-            <section class="py-4">
-                <form action="" enctype="multipart/form-data">
-                  <div class="form-group">
-                      <label for="tester_username">Tester's Username</label>
-                      <input type="text" class="form-control" name="tester_username" required autofocus>
-                  </div>
-
-                  <div class="form-group">
-                      <label for="tester_name">Tester's Name</label>
-                      <input type="text" class="form-control"  name="tester_name" required>
-                  </div>
-
-                  <div class="form-group">
-                      <label for="tester_password">Tester's Password</label>
-                      <input type="text" class="form-control"  name="tester_password" required minlength="3">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="tester_CrmPassword">Confirm Password</label>
-                    <input type="text" class="form-control" name="tester_CrmPassword" required minlength="3"> 
-                </div>
-                
-                <div class="form-group">
-                    <button class="btn btn-primary" type="submit" name="register_tester">Register Tester</button>
-                </div>
-              </form>
+            <section class="py-5"> 
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col">KitID</th>
+                        <th scope="col">Kit Name</th>
+                        <th scope="col">Available Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <th scope="row">TK1</th>
+                        <td>Antigen Test</td>
+                        <td>20</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">TK2</th>
+                        <td>Rapid Detection Test</td>
+                        <td>35</td>
+                        </tr>
+                        <tr>
+                        <th scope="row">TK3</th>
+                        <td>Molecular Test</td>
+                        <td>50</td>
+                        </tr>
+                    </tbody>
+                  </table>
             </section>
-      </div>
 
 
 
 
 
-
-            </section>
         </div>
 
     </main>
     <footer></footer>
 
-    
-    <script type="text/javascript" src="../views/js_admin/manager_chkLogin.js"></script>
+    <?php include "../includes/authentication.php"?>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

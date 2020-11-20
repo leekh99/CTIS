@@ -1,6 +1,7 @@
 
 <?php 
 
+
 if (isset($_POST['btnLogin'])){
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -8,7 +9,7 @@ if (isset($_POST['btnLogin'])){
     $username = login($username, $password);
 
     if ($username != ""){
-        $_SESSION["user"] = $username;
+        $_SESSION["username"] = $username;
 
         global $connection;
         $query = "SELECT * FROM centreofficer WHERE username = '$username'";
@@ -18,9 +19,10 @@ if (isset($_POST['btnLogin'])){
             while ($row = mysqli_fetch_assoc($result)){
                 $username = $row['username'];
                 $position = $row['position'];
+                $testCentre = $row['workplaceID'];
 
                 $_SESSION['position']= $position;
-                echo "<script>login(true, '$username', '$position');</script>";
+                echo "<script>login(true, '$username', '$position', $testCentre);</script>";
             }
         } else {
             $query = "SELECT * FROM patient WHERE username = '$username'";
@@ -32,13 +34,12 @@ if (isset($_POST['btnLogin'])){
                     $patientType = $row['patientType'];
                     $symptoms = $row['symptoms'];
                                         
+                    
                    $_SESSION['position']= 'patient';
                    echo "<script>login(true, '$username', 'patient');</script>";
                 }
             }
         }
-
-        $_SESSION['username']= $username;
     } else {
         echo "
         <script>
