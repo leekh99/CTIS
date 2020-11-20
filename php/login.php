@@ -21,6 +21,7 @@ if (isset($_POST['btnLogin'])){
                 $position = $row['position'];
                 $testCentre = $row['workplaceID'];
 
+                $_SESSION['centreID'] = $testCentre; 
                 $_SESSION['position']= $position;
                 echo "<script>login(true, '$username', '$position', $testCentre);</script>";
             }

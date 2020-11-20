@@ -1,8 +1,9 @@
 const elements = {
     testAccountForm : document.getElementById('test-form'),
     checkForm : document.getElementById('chkForm'),
-    patientUsername : document.getElementById('focusDefaultUsername'),
-    patientType : document.getElementById('patientType')
+    testForm : document.getElementById('account-form'),
+    patientUsername : document.getElementById('createUsername'),
+    patientType : document.getElementById('patientType'),
 }
 
 
@@ -26,5 +27,9 @@ const checkPatientData = () => {
     elements.patientUsername.value = patient;
     elements.patientType.value = type;
 }
+
+elements.patientUsername.addEventListener("keyup", event=>{
+    elements.patientUsername.setCustomValidity('');
+});
 
 checkPatientData();

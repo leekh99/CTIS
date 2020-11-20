@@ -50,4 +50,12 @@ function login($username, $password){
 
 }
 
+function checkUsername($username){
+    global $connection;
+    $query = "SELECT * FROM user WHERE username = '$username'";
+    $result = mysqli_query($connection, $query);
+
+    return $result->num_rows;
+}
+
 ?>

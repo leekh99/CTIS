@@ -51,36 +51,22 @@
         </aside>
 
         <div class="container">
-             <!-- breadcrumb navigation -->
-             <header>
-                <h2>Record Test &nbsp; <i class="fas fa-vial"></i> </h2>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item" aria-current="page"><a class="breadcrumb-item disabled" href="#">Record New Test</a></li>
-                    </ol>
-                </nav>
-            </header>
-
             <?php 
-                       if (isset($_GET['source'])){
-                           $source = $_GET['source'];
-                       } else {
-                           $source = '';
-                       }
+                if (isset($_GET['source'])){
+                    $source = $_GET['source'];
+                } else {
+                    $source = '';
+                }
 
-                       switch($source){
-                            case 'create_test':
-                                include "../php/tester_includes/createTest.php";
-                            break;
-                       
-                            default:
-                                include "../php/tester_includes/viewAllTestKit.php";
-                            break;
-                       }
-
-                  
-                       
+                switch($source){
+                    case 'create_test':
+                        include "../php/tester_includes/createTest.php";
+                    break;
+                
+                    default:
+                        include "../php/tester_includes/viewAllTestKit.php";
+                    break;
+                } 
             ?>
             
         </div>
@@ -93,7 +79,20 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <?php include "../php/tester_recordNewTest.php"?>
     <script>
+        $('input[name=patient_CrmPassword]').keyup(function () {
+            'use strict';
+
+            if ($('input[name=patient_password]').val() === $(this).val()) {
+                $('#passMatch').html('match');
+                this.setCustomValidity('');
+            } else {
+                $('#passMatch').html('mismatch');
+                this.setCustomValidity('Passwords must match');
+            }
+        });
+
         if(window.matchMedia('(max-width: 767px)').matches){
             $("#wrapper").toggleClass("toggled");
             $("#menu-icon").removeClass("fas fa-times");
