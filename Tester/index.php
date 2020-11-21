@@ -56,9 +56,9 @@
 
         <div class="container">
             <header>
-                <form action="" class="search shadow" method="POST">
+                <form action="search.php" class="search shadow" method="POST">
                     <div class="input-group form-group">
-                        <input type="text" class="form-control" placeholder="Search Patients with username ... ">
+                        <input type="text" class="form-control" name="searchKeyword" placeholder="Search Patients with username ... ">
                         <div class="input-group-prepend">
                             <button class="form-control btn btn-primary" id="btnSearch"><i class="fas fa-search"></i>&nbsp; SEARCH</button>
                         </div>
@@ -70,7 +70,7 @@
             <section id="patient-details">
                 <div class="row">
                     <section class="patient-list col-md-12 col-xs-12 flex">
-                         
+                         <?php include "../php/tester_index.php" ?>
                     </section>
 
                     <!-- filter category -->
@@ -98,7 +98,6 @@
         </script>
 
     <script type="text/javascript" src="../views/index.js"></script>
-    <?php include "../php/tester_index.php" ?>
     <?php include "../includes/authentication.php"?>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

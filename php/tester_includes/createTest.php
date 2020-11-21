@@ -9,7 +9,7 @@ if (isset($_GET['pUsername'])){
     $patientUsername = $_GET['pUsername'];
     $query = "SELECT * FROM patient WHERE username = '$patientUsername'";
     $selectPatient = mysqli_query($connection, $query);
-    //$symptoms;
+
     while ($row = mysqli_fetch_assoc($selectPatient)){
         $patientType = $row['patientType'];
         $symptoms = $row['symptoms'];
@@ -28,12 +28,12 @@ if (isset($_GET['pUsername'])){
     </nav>
 </header>
 
-<section class="py-4">
+<section class="py-4 belowBreadCrumb">
     <h5>Does patient already have an account ?  &emsp;
         <label class="switch">
             <input id="chkForm" type="checkbox" data-toggle="collapse" href="#account-form" onclick="formToggle()">
             <span class="slider round"></span>
-            </label>  
+        </label>  
     </h5>
 
 
@@ -56,12 +56,12 @@ if (isset($_GET['pUsername'])){
 
             <div class="form-group">
                 <label for="patient_password">Patient's Password</label>
-                <input type="text" class="form-control" name="patient_password" id="pass">
+                <input type="text" class="form-control" name="patient_password" id="pass" required>
             </div>
 
             <div class="form-group">
                 <label for="patient_CrmPassword">Confirm Password</label>
-                <input type="text" class="form-control" name="patient_CrmPassword" id="passMatch">
+                <input type="text" class="form-control" name="patient_CrmPassword" id="passMatch" required>
             </div>
 
             <div class="form-group">
@@ -92,7 +92,7 @@ if (isset($_GET['pUsername'])){
         <form action="" enctype="multipart/form-data" id="toggle" method="POST">
             <div class="form-group">
                 <label for="testKitName">Test Kit Selected : </label>
-                <input type="text" class="form-control" name="testKitName" value="TK<?php echo $tkID; ?>" readonly>
+                <input type="text" class="form-control" name="testKitID" value="TK<?php echo $tkID; ?>" readonly>
             </div>
             <div class="form-group">
                 <label for="patient_username">Patient's Username</label>
@@ -103,18 +103,18 @@ if (isset($_GET['pUsername'])){
             <div class="form-group">
                 <label for="patient_type">Patient Type</label>
                 <select class="form-control" name="patient_type" id="patientType">
-                    <option value="returnee">Returnee</option>
-                    <option value="quarantined">Quarantined</option>
-                    <option value="close_contact">Close Contact</option>
-                    <option value="infected">Infected</option>
-                    <option value="suspected">Suspected</option>
+                    <option value="Returnee">Returnee</option>
+                    <option value="Quarantined">Quarantined</option>
+                    <option value="Close_contact">Close Contact</option>
+                    <option value="Infected">Infected</option>
+                    <option value="Suspected">Suspected</option>
                 </select>
             </div>
     
             <div class="form-group">
                 <label for="patient_symptom">Patient's Symptoms</label>
                 <textarea class="form-control" name="patient_symptom" id="" cols="30" rows="10" 
-                    value= "<?php if(isset($symptoms)) echo $symptoms?>" required></textarea>
+                    required><?php if(isset($symptoms))  echo $symptoms;?></textarea>
             </div>
     
             <div class="form-group">

@@ -31,7 +31,7 @@
                 </button>
                  <!-- account menu -->
                 <aside class="collapse dropdown-menu dropdown-menu-right bg-light" id="accountMenu" >
-                    <a href="../login.html" class="dropdown-item bg-light">Logout</a>
+                    <a href="../login.php" class="dropdown-item bg-light">Logout</a>
                 </aside>
             </div>
 
@@ -56,7 +56,7 @@
                 <h2>Test Report &nbsp; <i class="far fa-file-alt"></i> </h2>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                         <li class="breadcrumb-item" aria-current="page"><a class="breadcrumb-item disabled" href="#">Generate Test Report</a></li>
                     </ol>
                 </nav>
@@ -89,7 +89,7 @@
                                       </p>
                                     </div>
                                     <div class="card-footer"><i class="far fa-clock"></i> Last updated :
-                                        <time> 19/10/2020 </time>
+                                        <time> <?php echo date("d/m/y") ?>  </time>
                                     </div>
                                   </div>
                             </div>
@@ -103,7 +103,7 @@
                                   </p>
                                 </div>
                                 <div class="card-footer"><i class="far fa-clock"></i> Last updated :
-                                    <time> 19/10/2020 </time>
+                                    <time> <?php echo date("d/m/y") ?>  </time>
                                 </div>
                               </div>
                             </div>
@@ -119,7 +119,7 @@
                                       </p>
                                     </div>
                                     <div class="card-footer"><i class="far fa-clock"></i> Last updated :
-                                        <time> 19/10/2020 </time>
+                                        <time> <?php echo date("d/m/y") ?>  </time>
                                     </div>
                                   </div>
                             </div>
@@ -171,7 +171,7 @@
     <footer></footer>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="../views/generateTestReport.js"></script>
+    <?php include "../views/generateTestReport.php" ?>
     <?php include "../includes/authentication.php"?>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

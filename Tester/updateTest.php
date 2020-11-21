@@ -9,6 +9,7 @@
     <!-- setup -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/4344e99275.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <!-- local files -->
     <link rel="shortcut icon" href="../img/ctisIcon_noBackgroundV2.png" type="image/x-icon">
@@ -31,7 +32,7 @@
                 </button>
                  <!-- account menu -->
                 <aside class="collapse dropdown-menu dropdown-menu-right bg-light" id="accountMenu" >
-                    <a href="../login.html" class="dropdown-item bg-light">Logout</a>
+                    <a href="../login.php" class="dropdown-item bg-light">Logout</a>
                 </aside>
             </div>
 
@@ -55,7 +56,7 @@
                 <h2>Update Test Report &nbsp; <i class="fas fa-pencil-alt"></i> </h2>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                         <li class="breadcrumb-item" aria-current="page"><a class="breadcrumb-item disabled" href="#">Update Test Result</a></li>
                     </ol>
                 </nav>
@@ -64,38 +65,77 @@
 
             <!-- add Tester for Test ID -->
             <section class="py-3">
-                <div class="form-group">
-                    <label for="covidTest_id">Covid Test ID</label>
-                    <input type="text" class="form-control" name="covidTest_id" required autofocus>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary shadow" id="btnGenerate" type="submit" name="add_test" onclick="renderLoader()">Generate Test Details</button>
-                </div>
+                <form action="" id="generateForm" enctype="multipart/form-data" method="POST">
+                    <div class="form-group">
+                        <label for="covidTest_id">Covid Test ID</label>
+                        <input type="text" class="form-control" name="covidTest_id" id="inputTestID" required autofocus>
+                        <label id="displayMessage" class="text-danger"></label>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary shadow" id="btnGenerate" type="submit" name="generate_test">Generate Test Details</button>
+                    </div>
+                </form>
             </section>
+
+            <!-- render data -->
+            <?php 
+            if(isset($_POST['generate_test'])){
+                $testID = str_replace("CT", "", $_POST['covidTest_id']);
+
+                $query = "SELECT * FROM covidtest WHERE testID = $testID";
+                
+                $selectTest = mysqli_query($connection, $query);
+                while ($row = mysqli_fetch_assoc($selectTest)){
+                    $testDate = $row['testDate'];
+                    $status = $row['status'];
+                    $patient = $row['recipient'];
+                }
+            }  ?>
 
             <section id="testDetails">
                 <div id="covidTestDetails-success" class="invisible">
-                    <h5 class="msg_successfull">Covid Test with ID 1 found successfully &emsp;<i class="fas fa-check-circle"></i></h5>
+                    <h5 class="msg_successfull">Covid Test with ID CT<?php echo $testID; ?> found successfully &emsp;<i class="fas fa-check-circle"></i></h5>
                     <div class="card shadow">
-                        <h5 class="card-header">Test ID :</h5>
-                        <div class="card-body">
-                            <h5 class="card-title">Test Recorded : </h5>
-                            <h5 class="card-text">Results : none </h5>
-                            <h5 class="card-text">Status : Pending</h5>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex flex-row justify-content">
-                                <a href="includes/test_update.html" class="card-link btn btn-primary shadow">Update Test</a>
-                                <a href="#" class="card-link btn btn-primary shadow" onclick="clearForm()">Cancel</a>
+                        <form action="" enctype="multipart/form-data" method="POST">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Test ID : </label>
+                                    <input type="text" class="form-control" name="testID" value="<?php echo $testID; ?> " readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Patient Username : </label>
+                                    <input type="text" class="form-control" name="patientUsername" value="<?php echo $patient; ?> " readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Test Recorded : </label>
+                                    <input type="text" class="form-control" name="testRecorded" value="<?php echo $testDate; ?> " readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="patient_type">Results : </label>
+                                    <select class="form-control" name="testResult">
+                                        <option value="positive">Positive</option>
+                                        <option value="negative">Negative</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Status : </label>
+                                    <input type="text" class="form-control" name="status" value="<?php echo $status;?>" readonly>
+                                </div>
                             </div>
-                        </div>
+                            <div class="card-footer">
+                                <div class="d-flex flex-row justify-content">
+                                    <button class="card-link btn btn-primary shadow" name="updateTest" type="submit">Update Test</button>
+                                    <a href="#" class="card-link btn btn-primary shadow" onclick="clearForm()">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div id="covidTestDetails-fail" class="invisible">
-                    <h5 class="msg_error">Covid Test with ID 1 is not found &emsp;<i class="fas fa-times-circle"></i></h5>
+                    <h5 class="msg_error">Covid Test with ID CT<?php echo $testID; ?> is not found &emsp;<i class="fas fa-times-circle"></i></h5>
                 </div>
             </section>
-
+         
 
         </div>
 
@@ -104,6 +144,7 @@
 
     <script type="text/javascript" src="../views/updateReport.js"></script>
     <?php include "../includes/authentication.php"?>
+    <?php include "../php/tester_updateTestResult.php" ?>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

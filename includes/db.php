@@ -58,4 +58,13 @@ function checkUsername($username){
     return $result->num_rows;
 }
 
+function checkPatient($username){
+    global $connection;
+    $query = "SELECT * FROM patient WHERE username = '$username'";
+    $result = mysqli_query($connection, $query);
+
+    return $result->num_rows;
+}
+
+
 ?>

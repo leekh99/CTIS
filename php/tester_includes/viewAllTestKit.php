@@ -1,5 +1,5 @@
 <!-- breadcrumb navigation -->
-<header>
+<header id="breadcrumbNav">
     <h2>Record Test &nbsp; <i class="fas fa-vial"></i> </h2>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -46,11 +46,15 @@
                         echo " <th scope='row'>TK{$kitID}</th>";
                         echo " <td>$kitName</td>";
                         echo " <td>$availableStock</td>";
-                        if (isset($_GET['patientUsername'])){
-                            $patient = $_GET['patientUsername'];
-                            echo " <td><a href='recordTest.php?source=create_test&tkID={$kitID}&pUsername=$patient'>Select</a></td>";
-                        } else {
-                            echo " <td><a href='recordTest.php?source=create_test&tkID={$kitID}'>Select</a></td>";
+                        if ($availableStock <= 0)
+                            echo "<td>Out of stock</td>";
+                        else {
+                            if (isset($_GET['patientUsername'])){
+                                $patient = $_GET['patientUsername'];
+                                echo " <td><a href='recordTest.php?source=create_test&tkID={$kitID}&pUsername=$patient'>Select</a></td>";
+                            } else {
+                                echo " <td><a href='recordTest.php?source=create_test&tkID={$kitID}'>Select</a></td>";
+                            }
                         }
                         echo "</tr>";
                     }

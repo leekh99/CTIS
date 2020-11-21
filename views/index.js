@@ -29,8 +29,6 @@ const topFunction = () => {
 // dummy data
 
 
-
-
 const getInput = () => {elements.search.value};
 const clearInput = () => {elements.search.value = ''};
 
@@ -39,10 +37,10 @@ const ClearResults = () => {
 }
 
 const renderTest =test => {
-    return  `<span class="text-info font-weight-bold"> ${test.id}</span>&nbsp; ${test.date} <i class="far fa-clock"></i> &emsp; &emsp;`;
+    return  `<span class="text-info font-weight-bold"> ${test.id}</span>&nbsp; ${test.status} <i class="far fa-clock"></i> &emsp; &emsp;`;
 }
 
-const renderPatient = (patient, testerName) => {
+const renderPatient = (patient) => {
     const markup = `
     <div class="card shadow">
         <h5 class="card-header"><span class="font-weight-bold">Username :</span>  ${patient.username} 
@@ -53,7 +51,7 @@ const renderPatient = (patient, testerName) => {
         <p class="card-text"><span class="font-weight-bold">Symptoms:</span></p>
         <blockquote class="px-2">
             <p>${patient.symptoms}</p>
-            <footer class="blockquote-footer">${testerName}</footer>
+            <footer class="blockquote-footer">${patient.tester}</footer>
         </blockquote>
         </div>
         <ul class="list-group border-top list-group-flush">
@@ -81,6 +79,10 @@ const renderPatient = (patient, testerName) => {
 const renderResults = (patient) => {
     
 }
+
+const patients = [];
+
+
 
 
 // const checkUser = () =>{
