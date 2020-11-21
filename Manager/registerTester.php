@@ -1,4 +1,35 @@
-<?php include "../includes/db.php" ?>
+<?php
+global $connection;
+include "../includes/db.php"
+if(!isset($_SESSION))
+{
+    session_start();
+}
+$errormsg="";
+$officerResult = mysqli_query($con,"SELECT * from user, centreofficer WHERE user.username=centreofficer.username;");
+
+if(isset($_POST['submit'])){
+
+  $officerUsernameCheck = "select * from user,centreofficer WHERE user.username='".$_POST['username']."'  AND password='".$_POST['password']."'AND user.username=centreofficer.username;";
+  $officerUsernameCheckRow = mysqli_num_rows(mysqli_query($con,$officerUsernameCheck));
+
+  if ($officerUsernameCheckRow>0){
+    echo '<script>alert("That Username already exists!")</script>';
+  }
+  else{
+    $userInsertSql="INSERT INTO `user` (`username`, `password`, `name`, `email`, `address`, `identificationNo`, `contactNo`) VALUES ('".$_POST['username']."', '".$_POST['password']."', '".$_POST['name']."', '".$_POST['email']."',
+      '".$_POST['address']."', '".$_POST['identificationNo']."', '".$_POST['contactNo']."');";
+    mysqli_query($con,$userInsertSql);
+    $centreofficerInsertSql="INSERT INTO `centreofficer` (`username`, `position`, `workplace`) VALUES ('".$_POST['username']."', 'Tester', '".$_SESSION['testcentre']."');";
+    mysqli_query($con,$userInsertSql);
+    mysqli_query($con,$centreofficerInsertSql);
+    $_SESSION['message']="New User and Tester accounts created successfully!.";
+  }
+}
+//alert message
+include_once("alert.php");
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,9 +126,9 @@
 
                   <div class="form-group">
                     <label for="tester_CrmPassword">Confirm Password</label>
-                    <input type="text" class="form-control" name="tester_CrmPassword" required minlength="3"> 
+                    <input type="text" class="form-control" name="tester_CrmPassword" required minlength="3">
                 </div>
-                
+
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit" name="register_tester">Register Tester</button>
                 </div>
@@ -116,7 +147,7 @@
     </main>
     <footer></footer>
 
-   
+
     <?php include "../includes/authentication.php"?>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

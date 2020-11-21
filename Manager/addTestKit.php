@@ -1,4 +1,23 @@
 <?php include "../includes/db.php" ?>
+<?php
+
+  $testKitResult = mysqli_query($con, "SELECT * FROM testkit WHERE location='".$_SESSION['testcentre']."';");
+
+  if(isset($_POST['submit'])){
+    $testKitCheck =  "select * from testkit where testkit.testName = '".$_POST['tkName']."' and location='".$_SESSION['testcentre']."';";
+    $testKitCheckRow = mysqli_num_rows(mysqli_query($con,$testKitCheck));
+    if ($testKitCheckRow>0) {
+        $_SESSION['errormessage']="The TestKit '".$_POST['tkName']."' already exists in this Test Centre! Update its Available Stock below instead!";
+    }
+    else{
+      $testKitInsertSql="INSERT INTO `testkit` (`kitID`, `testName`, `availableStock`, `location`) VALUES ('".uniqid("TK")."', '".$_POST['tkName']."', '".$_POST['availableStock']."', '".$_SESSION['testcentre']."');";
+      mysqli_query($con,$testKitInsertSql);
+
+      $_SESSION['message']="New TestKit '".$_POST['tkName']."' added for ".$_SESSION['testcentre']."!";
+    }
+    header("Refresh:0");
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +96,7 @@
                 </nav>
             </header>
 
-            <section class="py-5"> 
+            <section class="py-5">
                 <form action="" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="testKit_name">Test Kit Name</label>
@@ -104,7 +123,7 @@
     </main>
     <footer></footer>
 
-    
+
     <?php include "../includes/authentication.php"?>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

@@ -1,4 +1,18 @@
-<?php include "../includes/db.php" ?>
+<?php
+if(!isset($_SESSION))
+{
+    session_start();
+}
+include "../includes/db.php"
+if (isset($_GET['testName'])){
+  $testkitResult=mysqli_query($con,"SELECT * FROM testkit WHERE location='".$_SESSION['testcentre']."' AND testkit.availableStock>0 AND testkit.testName='".$_GET['testName']."';");
+}
+$testCentreResult=mysqli_query($con,"SELECT * FROM testcentre WHERE centreID='".$_SESSION['testcentre']."';");
+if(isset($_POST['submit'])){
+
+  $testkitUpdateSql="UPDATE testkit SET availableStock='".$_POST['newStock']."'  WHERE testName='".$_GET['testName']."' AND location='".$_SESSION['testcentre']."';";
+  mysqli_query($con,$testkitUpdateSql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +91,7 @@
                 </nav>
             </header>
 
-            <section class="py-5"> 
+            <section class="py-5">
                 <div class="form-group">
                     <label for="testKit_id">Test Kit ID</label>
                     <input type="text" class="form-control" name="testKit_id" required autofocus>
@@ -115,7 +129,7 @@
     </main>
     <footer></footer>
 
-    
+
     <script type="text/javascript" src="../views/js_admin/updateTestKit.js"></script>
     <?php include "../includes/authentication.php"?>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

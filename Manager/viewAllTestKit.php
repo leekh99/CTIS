@@ -1,4 +1,7 @@
-<?php include "../includes/db.php" ?>
+<?php
+include "../includes/db.php"
+  $testKitResult = mysqli_query($con, "SELECT * FROM testkit WHERE location='".$_SESSION['testcentre']."';");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +80,7 @@
                 </nav>
             </header>
 
-            <section class="py-5"> 
+            <section class="py-5">
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
@@ -87,21 +90,24 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                          $j=0;
+                          while($testKitRow=mysqli_fetch_array($testKitResult)){ ?>
                         <tr>
-                        <th scope="row">TK1</th>
-                        <td>Antigen Test</td>
-                        <td>20</td>
+                          <th scope="row"><?php echo($j+1) ?></th>
+                          <td><strong><?php echo $testKitRow["kitID"]; ?></strong></td>
+                          <td><strong><?php echo $testKitRow["testName"]; ?></strong></td>
+                          <td><strong><?php echo $testKitRow["availableStock"]; ?></strong></td>
+                          <td><strong><?php echo $testKitRow["location"]; ?></strong></td>
+
+                          <td>
+                            <!--<button type="button" class="btn btn-dark">New Test</button>-->
+                            <a class="btn btn-dark" href='officer-UpdateTestKitStock.php?testName=<?php echo $testKitRow["testName"]; ?>'><strong>Update Stock</strong></a>
+                          </td>
                         </tr>
-                        <tr>
-                        <th scope="row">TK2</th>
-                        <td>Rapid Detection Test</td>
-                        <td>35</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">TK3</th>
-                        <td>Molecular Test</td>
-                        <td>50</td>
-                        </tr>
+                        <?php
+                        $j++;}
+                        ?>
                     </tbody>
                   </table>
             </section>
