@@ -1,6 +1,15 @@
 <?php
+if(!isset($_SESSION))
+{
+    session_start();
+}
 include "../includes/db.php";
 include_once('../alert.php');
+global $connection;
+$tests = "SELECT * from covidtest ct, centreofficer co, testkit tk WHERE ct.tester = co.username AND ct.testKitID = tk.kitID AND co.workplaceID = '".$_SESSION['centreID']."';";
+$testsResults = mysqli_query($connection, $tests);
+$testers = "SELECT * FROM centreofficer ct, user u WHERE ct.workplaceID = '".$_SESSION['centreID']."' AND ct.username = u.username";
+$testersResult = mysqli_query($connection, $testers);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,7 +113,7 @@ include_once('../alert.php');
                                       </p>
                                     </div>
                                     <div class="card-footer"><i class="far fa-clock"></i> Last updated :
-                                        <time> 19/10/2020 </time>
+                                        <time><?php Date("Y/m/d");?></time>
                                     </div>
                                   </div>
                             </div>
@@ -118,7 +127,7 @@ include_once('../alert.php');
                                   </p>
                                 </div>
                                 <div class="card-footer"><i class="far fa-clock"></i> Last updated :
-                                    <time> 19/10/2020 </time>
+                                    <time> <?php Date("Y/m/d") ?> </time>
                                 </div>
                               </div>
                             </div>
@@ -175,36 +184,22 @@ include_once('../alert.php');
                                 </tr>
                             </thead>
                             <tbody id="testTableRow">
-                                <tr>
-                                <th scope="row">CT1</th>
-                                <td>Matthew</td>
-                                <td>Dr.Lee</td>
-                                <td>Antigen</td>
-                                <td>21/10/2020</td>
-                                <td>Negative</td>
-                                <td>22/10/2020</td>
-                                <td>Completed</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">CT2</th>
-                                <td>Amber</td>
-                                <td>Dr.Tan</td>
-                                <td>Rapid Detection</td>
-                                <td>23/10/2020</td>
-                                <td>-</td>
-                                <td>23/10/2020</td>
-                                <td>Pending</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">CT3</th>
-                                <td>Jean</td>
-                                <td>Dr.Han</td>
-                                <td>Molecular</td>
-                                <td>17/10/2020</td>
-                                <td>Positive</td>
-                                <td>19/10/2020</td>
-                                <td>Completed</td>
-                                </tr>
+                                <?php
+                                $j=0;
+                                  while($testRow=mysqli_fetch_array($testsResults)){ ?>
+                                  <tr>
+                                    <td><strong><?php echo "CT".$testRow["testID"]; ?></strong></td>
+                                    <td><strong><?php echo $testRow["testDate"]; ?></strong></td>
+                                    <td><strong><?php echo $testRow["status"]; ?></strong></td>
+                                    <td><strong><?php echo $testRow["recipient"]; ?></strong></td>
+                                    <td><strong><?php echo "TK".$testRow["testKitID"]; ?></strong></td>
+                                    <td><strong><?php echo $testRow["tester"]; ?></strong></td>
+                                    <td><strong><?php echo $testRow["result"]; ?></strong></td>
+                                    <td><strong><?php echo $testRow["resultDate"]; ?></strong></td>
+                              </tr>
+                              <?php
+                              $j++;}
+                              ?>
                             </tbody>
                           </table>
                     </section>
@@ -220,25 +215,18 @@ include_once('../alert.php');
                                 <th scope="col">Workplace</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                <th scope="row">leekeathong</th>
-                                <td>Dr.Lee</td>
-                                <td>Tester</td>
-                                <td>TC01</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">edisontan</th>
-                                <td>Dr.Tan</td>
-                                <td>Tester</td>
-                                <td>TC01</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">wenying</th>
-                                <td>Dr.Siw</td>
-                                <td>Tester</td>
-                                <td>TC01</td>
-                                </tr>
+                            <tbody id="testTableRow">
+                                <?php
+                                $j=0;
+                                  while($testerRow=mysqli_fetch_array($testersResult)){ ?>
+                                  <tr>
+                                    <td><strong><?php echo $testerRow["username"]; ?></strong></td>
+                                    <td><strong><?php echo $testerRow["name"]; ?></strong></td>
+                                    <td><strong><?php echo $testerRow["position"]; ?></strong></td>
+                                    <td><strong><?php echo "TC".$testerRow["workplaceID"]; ?></strong></td>
+                              <?php
+                              $j++;}
+                              ?>
                             </tbody>
                           </table>
                     </section>
