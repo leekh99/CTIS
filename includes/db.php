@@ -6,7 +6,7 @@ if(!isset($_SESSION))
 $db['db_host'] = "localhost";
 $db['db_user'] = "root";
 $db['db_pass'] = "";
-$db['db_name'] = "ctisv2";
+$db['db_name'] = "ctis";
 
 foreach($db as $key => $value){
     define(strtoupper($key),$value);
