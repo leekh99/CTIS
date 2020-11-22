@@ -34,9 +34,9 @@
 
                     $centreID = $result['workplaceID'];
 
-                    $query = "SELECT * FROM testkit WHERE location = $centreID";
+                    $query = "SELECT * FROM testkit WHERE testCentreID = $centreID";
                     $selectTestKit = mysqli_query($connection, $query);
-
+                    echo $connection->error;
                     while($row = mysqli_fetch_assoc($selectTestKit)){
                         $kitID = $row['kitID'];
                         $kitName = $row['testName'];
