@@ -1,6 +1,7 @@
 <?php
-include "../includes/db.php"
-  $testKitResult = mysqli_query($con, "SELECT * FROM testkit WHERE location='".$_SESSION['testcentre']."';");
+include_once( "../includes/db.php");
+global $connection;
+$testKitResult = mysqli_query($connection, "SELECT * FROM testKit WHERE location='".$_SESSION['testcentre']."';");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,12 +88,14 @@ include "../includes/db.php"
                         <th scope="col">KitID</th>
                         <th scope="col">Kit Name</th>
                         <th scope="col">Available Stock</th>
+                        <th scope="col">Test Kit Location</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                           $j=0;
-                          while($testKitRow=mysqli_fetch_array($testKitResult)){ ?>
+                          while($testKitRow=mysqli_fetch_array($testKitResult)){
+                            ?>
                         <tr>
                           <th scope="row"><?php echo($j+1) ?></th>
                           <td><strong><?php echo $testKitRow["kitID"]; ?></strong></td>

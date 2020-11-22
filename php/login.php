@@ -1,7 +1,5 @@
 
-<?php 
-
-
+<?php
 if (isset($_POST['btnLogin'])){
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -12,7 +10,7 @@ if (isset($_POST['btnLogin'])){
         $_SESSION["username"] = $username;
 
         global $connection;
-        $query = "SELECT * FROM centreofficer WHERE username = '$username'";
+        $query = "SELECT * FROM centreofficer WHERE username = '".$username."'";
         $result = mysqli_query($connection, $query);
 
         if ($result->num_rows > 0){
@@ -21,23 +19,23 @@ if (isset($_POST['btnLogin'])){
                 $position = $row['position'];
                 $testCentre = $row['workplaceID'];
 
-                $_SESSION['centreID'] = $testCentre; 
+                $_SESSION['centreID'] = $testCentre;
                 $_SESSION['position']= $position;
-                echo "<script>login(true, '$username', '$position', $testCentre);</script>";
+                echo "<script>login(true, '".$username."', '".$position."', $testCentre);</script>";
             }
         } else {
-            $query = "SELECT * FROM patient WHERE username = '$username'";
+            $query = "SELECT * FROM patient WHERE username = '".$username."'";
             $result = mysqli_query($connection, $query);
 
             if ($result->num_rows > 0){
                 while ($row = mysqli_fetch_assoc($result)){
-                    $username = $row['username'];  
+                    $username = $row['username'];
                     $patientType = $row['patientType'];
                     $symptoms = $row['symptoms'];
-                                        
-                    
+
+
                    $_SESSION['position']= 'patient';
-                   echo "<script>login(true, '$username', 'patient');</script>";
+                   echo "<script>login(true, '".$username."', 'patient');</script>";
                 }
             }
         }
@@ -46,9 +44,9 @@ if (isset($_POST['btnLogin'])){
         <script>
             login();
             window.location= windowUrl('login.php');
-        
+
         </script>";
-        
+
     }
 }
 

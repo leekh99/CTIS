@@ -1,10 +1,9 @@
 <?php include "../includes/db.php" ?>
 <?php
-
-  $testKitResult = mysqli_query($con, "SELECT * FROM testkit WHERE location='".$_SESSION['testcentre']."';");
+  $testKitResult = mysqli_query($con, "SELECT * FROM testkit WHERE location='".$_SESSION['centreID']."';");
 
   if(isset($_POST['submit'])){
-    $testKitCheck =  "select * from testkit where testkit.testName = '".$_POST['tkName']."' and location='".$_SESSION['testcentre']."';";
+    $testKitCheck =  "select * from testKit where testKit.testName = '".$_POST['tkName']."' and location='".$_SESSION['testcentre']."';";
     $testKitCheckRow = mysqli_num_rows(mysqli_query($con,$testKitCheck));
     if ($testKitCheckRow>0) {
         $_SESSION['errormessage']="The TestKit '".$_POST['tkName']."' already exists in this Test Centre! Update its Available Stock below instead!";
