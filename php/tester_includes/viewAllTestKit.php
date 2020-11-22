@@ -23,7 +23,7 @@
             </thead>
             <tbody>
 
-                <?php 
+                <?php
                     $username = $_SESSION['username'];
 
 
@@ -33,8 +33,8 @@
                     $result = mysqli_fetch_assoc($selectCentreID);
 
                     $centreID = $result['workplaceID'];
-                    
-                    $query = "SELECT * FROM testkit WHERE testCentreID = $centreID";
+
+                    $query = "SELECT * FROM testkit WHERE location = $centreID";
                     $selectTestKit = mysqli_query($connection, $query);
 
                     while($row = mysqli_fetch_assoc($selectTestKit)){
