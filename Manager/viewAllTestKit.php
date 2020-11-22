@@ -5,8 +5,9 @@ if(!isset($_SESSION))
 }
 include_once( "../includes/db.php");
 global $connection;
-$testKits = "SELECT * FROM testKit tk, user u, centreofficer co WHERE tk.location = co.workplaceID AND co.username = u.username AND u.username ='".$_SESSION['username']."';";
+$testKits = "SELECT * FROM testkit tk, user u, centreofficer co WHERE tk.testCentreID = co.workplaceID AND co.username = u.username AND u.username ='".$_SESSION['username']."';";
 $testKitResult = mysqli_query($connection, $testKits);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
