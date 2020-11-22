@@ -1,7 +1,11 @@
 <?php
+if(!isset($_SESSION))
+{
+    session_start();
+}
 include_once( "../includes/db.php");
 global $connection;
-$testKits = "SELECT kitID, testName, availableStock, location FROM testKit tk, user u, centreofficer co WHERE tk.location = co.workplaceID AND co.username = u.username AND u.username ='".$_SESSION['username']."';";
+$testKits = "SELECT * FROM testKit tk, user u, centreofficer co WHERE tk.location = co.workplaceID AND co.username = u.username AND u.username ='".$_SESSION['username']."';";
 $testKitResult = mysqli_query($connection, $testKits);
 ?>
 <!DOCTYPE html>
@@ -61,9 +65,9 @@ $testKitResult = mysqli_query($connection, $testKits);
                         <li>
                             <a href="addTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; Add Test Kit</a>
                         </li>
-                        <li>
-                            <a href="updateTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; Update Test Kit</a>
-                        </li>
+                        <!--<li>
+                            <a href="#" class="list-group-item list-group-item-action bg-light highlight">&emsp; Update Test Kit</a>
+                        </li>-->
                     </ul>
                 </li>
             </div>
@@ -84,12 +88,13 @@ $testKitResult = mysqli_query($connection, $testKits);
 
             <section class="py-5">
                 <table class="table">
-                    <thead class="thead-dark">
+                    <thead class="thead" style="background-color:#FFB6C1">
                         <tr>
                         <th scope="col">KitID</th>
                         <th scope="col">Kit Name</th>
                         <th scope="col">Available Stock</th>
                         <th scope="col">Test Kit Location</th>
+                        <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,11 +103,15 @@ $testKitResult = mysqli_query($connection, $testKits);
                           while($testKitRow=mysqli_fetch_assoc($testKitResult)){
                             ?>
                         <tr>
+                          <?php$j+1;?>
                           <td><strong><?php echo $testKitRow["kitID"]; ?></strong></td>
                           <td><strong><?php echo $testKitRow["testName"]; ?></strong></td>
                           <td><strong><?php echo $testKitRow["availableStock"]; ?></strong></td>
                           <td><strong><?php echo $testKitRow["location"]; ?></strong></td>
-
+                          <td>
+                            <!--<button type="button" class="btn btn-dark">New Test</button>-->
+                            <a class="btn btn-primary" href='updateTestKit.php?testName=<?php echo $testKitRow["testName"];?>&kitID=<?php echo $testKitRow["kitID"]?>'><strong>Update Stock</strong></a>
+                          </td>
                         </tr>
                         <?php
                         $j++;}

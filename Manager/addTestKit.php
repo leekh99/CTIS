@@ -1,18 +1,27 @@
-<?php include "../includes/db.php" ?>
 <?php
-  $testKitResult = mysqli_query($con, "SELECT * FROM testkit WHERE location='".$_SESSION['centreID']."';");
+if(!isset($_SESSION))
+{
+    session_start();
+}
+  global $connection;
+  include "../includes/db.php";
+  include '../alert.php';
+  $centreID = mysqli_query($connection, "SELECT workplaceID from user where username = '".$_SESSION['username']."';");
+  $testKitResult = mysqli_query($connection, "SELECT * FROM testkit WHERE location='".$_SESSION['centreID']."';");
+  $testKits = "SELECT * FROM testKit tk, user u, centreofficer co WHERE tk.location = co.workplaceID AND co.username = u.username AND u.username ='".$_SESSION['username']."';";
+  $testKitResult = mysqli_num_rows(mysqli_query($connection, $testKits));
 
   if(isset($_POST['submit'])){
-    $testKitCheck =  "select * from testKit where testKit.testName = '".$_POST['tkName']."' and location='".$_SESSION['testcentre']."';";
+    $testKitCheck =  "select * from testKit where testKit.testName = '".$_POST['tkName']."' and location='".$centreID."';";
     $testKitCheckRow = mysqli_num_rows(mysqli_query($con,$testKitCheck));
     if ($testKitCheckRow>0) {
         $_SESSION['errormessage']="The TestKit '".$_POST['tkName']."' already exists in this Test Centre! Update its Available Stock below instead!";
     }
     else{
-      $testKitInsertSql="INSERT INTO `testkit` (`kitID`, `testName`, `availableStock`, `location`) VALUES ('".uniqid("TK")."', '".$_POST['tkName']."', '".$_POST['availableStock']."', '".$_SESSION['testcentre']."');";
-      mysqli_query($con,$testKitInsertSql);
+      $testKitInsertSql="INSERT INTO `testKit` (`kitID`, `testName`, `availableStock`, `location`) VALUES ('$testKitResult', '".$_POST['testkitName']."', '".$_POST['availableStock']."', '".$centreID."');";
+      mysqli_query($connection,$testKitInsertSql);
 
-      $_SESSION['message']="New TestKit '".$_POST['tkName']."' added for ".$_SESSION['testcentre']."!";
+      $_SESSION['message']="New TestKit '".$_POST['tkName']."' added for Test Centre ".$_SESSION['centreID']."!";
     }
     header("Refresh:0");
   }
@@ -74,9 +83,9 @@
                         <li>
                             <a href="#" class="list-group-item list-group-item-action bg-light highlight">&emsp; Add Test Kit</a>
                         </li>
-                        <li>
-                            <a href="updateTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; Update Test Kit</a>
-                        </li>
+                        <!--<li>
+                            <a href="#" class="list-group-item list-group-item-action bg-light highlight">&emsp; Update Test Kit</a>
+                        </li>-->
                     </ul>
                 </li>
             </div>
@@ -99,16 +108,16 @@
                 <form action="" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="testKit_name">Test Kit Name</label>
-                        <input type="text" class="form-control" name="testKit_name" required autofocus>
+                        <input type="text" class="form-control" name="testkitName" required autofocus>
                     </div>
 
                     <div class="form-group">
                         <label for="availableStock">Available Stock</label>
-                        <input type="text" class="form-control" name="availableStock">
+                        <input type="text" class="form-control" name="availableStock" required>
                     </div>
 
                     <div class="form-group">
-                        <button class="btn btn-primary" type="submit" name="add_TestKit">Add Test Kit</button>
+                        <button class="btn btn-primary" type="submit" name="submit">Add Test Kit</button>
                     </div>
                 </form>
             </section>

@@ -57,9 +57,9 @@
                         <li>
                             <a href="addTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; Add Test Kit</a>
                         </li>
-                        <li>
-                            <a href="updateTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; Update Test Kit</a>
-                        </li>
+                        <!--<li>
+                            <a href="#" class="list-group-item list-group-item-action bg-light highlight">&emsp; Update Test Kit</a>
+                        </li>-->
                     </ul>
                 </li>
             </div>
@@ -154,9 +154,9 @@
                                 Sort
                                 </button>
                             </div>
-                              
+
                         </div>
-                      
+
 
                         <table class="table py-3">
                             <thead class="thead-dark">

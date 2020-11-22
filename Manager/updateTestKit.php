@@ -1,17 +1,23 @@
 <?php
-if(!isset($_SESSION))
-{
-    session_start();
-}
-include "../includes/db.php"
-if (isset($_GET['testName'])){
-  $testkitResult=mysqli_query($con,"SELECT * FROM testkit WHERE location='".$_SESSION['testcentre']."' AND testkit.availableStock>0 AND testkit.testName='".$_GET['testName']."';");
-}
-$testCentreResult=mysqli_query($con,"SELECT * FROM testcentre WHERE centreID='".$_SESSION['testcentre']."';");
-if(isset($_POST['submit'])){
+global $connection;
+include '../alert.php';
+  if(!isset($_SESSION))
+  {
+      session_start();
+  }
+  $_SESSION['secondPage']="<b>Updating Test Kit Stock</b>";
+  include_once("../includes/db.php");
+  if (isset($_GET['testName'])){
+    $testkitResult=mysqli_query($connection,"SELECT * FROM testkit WHERE location='".$_SESSION['centreID']."' AND testkit.kitID='".$_GET['kitID']."';");
+  }
+  $testCentreResult=mysqli_query($connection,"SELECT * FROM testcentre WHERE centreID='".$_SESSION['centreID']."';");
+  if(isset($_POST['submit'])){
 
-  $testkitUpdateSql="UPDATE testkit SET availableStock='".$_POST['newStock']."'  WHERE testName='".$_GET['testName']."' AND location='".$_SESSION['testcentre']."';";
-  mysqli_query($con,$testkitUpdateSql);
+    $testkitUpdateSql="UPDATE testkit SET availableStock='".$_POST['newStock']."'  WHERE testkit.kitID='".$_GET['kitID']."' AND location='".$_SESSION['centreID']."';";
+    mysqli_query($connection,$testkitUpdateSql);
+    $_SESSION['message']="Test Kit Stock updated for ".$_GET['testName']."!";
+    header('location:viewAllTestKit.php');
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,9 +76,9 @@ if(isset($_POST['submit'])){
                         <li>
                             <a href="addTestKit.php" class="list-group-item list-group-item-action bg-light ">&emsp; Add Test Kit</a>
                         </li>
-                        <li>
+                        <!--<li>
                             <a href="#" class="list-group-item list-group-item-action bg-light highlight">&emsp; Update Test Kit</a>
-                        </li>
+                        </li>-->
                     </ul>
                 </li>
             </div>
@@ -91,40 +97,57 @@ if(isset($_POST['submit'])){
                 </nav>
             </header>
 
-            <section class="py-5">
-                <div class="form-group">
-                    <label for="testKit_id">Test Kit ID</label>
-                    <input type="text" class="form-control" name="testKit_id" required autofocus>
-                </div>
-
-                <div class="form-group">
-                    <button class="btn btn-primary" type="submit" name="generate_TestKit" onclick="renderLoader()" id="btnGenerate">Generate Test Kit</button>
-                </div>
-            </section>
-
-            <section id="testKitDetails">
-                <div id="testKitDetails-success" class="invisible">
-                    <h5 class="msg_successfull">Covid Test with ID 1 found successfully &emsp;<i class="fas fa-check-circle"></i></h5>
-                    <div class="card shadow">
-                        <h5 class="card-header">Test ID :</h5>
-                        <div class="card-body">
-                            <h5 class="card-title">Test Recorded : </h5>
-                            <h5 class="card-text">Results : none </h5>
-                            <h5 class="card-text">Status : Pending</h5>
+            <div class="container">
+              <div class="card mx-4 mt-4">
+                <form method="POST" action="#">
+                  <div class='card-body'>
+                    <h3 class="card-title text-center">Updating Test Kit Stock</h3>
+                    <hr>
+                    <h4 class=" text-center">TestKit Details</h4>
+                    <?php
+                    $testkitRow=mysqli_fetch_assoc($testkitResult);
+                    $testcentreRow=mysqli_fetch_assoc($testCentreResult);?>
+                    <div class="row border m-3 p-3" style="border:10px;">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Test Centre ID</label>
+                          <input type="text" name="testcentre" class="form-control"  value="<?php echo $_SESSION['testcentre']; ?>" disabled>
                         </div>
-                        <div class="card-footer">
-                            <div class="d-flex flex-row justify-content">
-                                <a href="#" class="card-link btn btn-primary shadow">Update Test</a>
-                                <a href="#" class="card-link btn btn-primary shadow" onclick="clearForm()">Cancel</a>
-                            </div>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="form-group">
+                          <label>Test Centre Name</label>
+                          <input type="text" name="tcName" class="form-control"  value="<?php echo $testcentreRow["centreName"]; ?>" disabled>
                         </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Test Kit ID</label>
+                          <input type="text" name="kitID" class="form-control"  value="<?php echo $testkitRow["kitID"]; ?>" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Test Kit Name</label>
+                          <input type="text" name="tkName" class="form-control" value="<?php echo $testkitRow["testName"]; ?>" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>New Available Stock</label>
+                          <input type="number" name="newStock" class="form-control"  placeholder="00" required>
+                        </div>
+                      </div>
+
                     </div>
-                </div>
-                <div id="testKitDetails-fail" class="invisible">
-                    <h5 class="msg_error">Covid Test with ID 1 is not found &emsp;<i class="fas fa-times-circle"></i></h5>
-                </div>
-            </section>
-        </div>
+                    <div class="mt-2 text-center">
+                      <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
 
     </main>
     <footer></footer>
