@@ -9,7 +9,7 @@ if(!isset($_SESSION))
   include '../error-alert.php';
   $centreID = mysqli_query($connection, "SELECT workplaceID from user where username = '".$_SESSION['username']."';");
   $testKitResult = mysqli_query($connection, "SELECT * FROM testkit WHERE location='".$_SESSION['centreID']."';");
-  $testKits = "SELECT * FROM testKit tk, user u, centreofficer co WHERE tk.location = co.workplaceID AND co.username = u.username AND u.username ='".$_SESSION['username']."';";
+  $testKits = "SELECT * FROM testkit tk, user u, centreofficer co WHERE tk.location = co.workplaceID AND co.username = u.username AND u.username ='".$_SESSION['username']."';";
   $testKitResult = mysqli_num_rows(mysqli_query($connection, $testKits));
 
   if(isset($_POST['submit'])){
