@@ -38,8 +38,6 @@ CREATE TABLE `centreofficer` (
 --
 
 INSERT INTO `centreofficer` (`username`, `position`, `workplaceID`) VALUES
-('henry', 'tester', 1),
-('james', 'manager', NULL),
 ('superuser', 'superAdmin', NULL);
 
 -- --------------------------------------------------------
