@@ -104,7 +104,7 @@ $testKitResult = mysqli_query($connection, $testKits);
                             ?>
                         <tr>
                           <?php$j+1;?>
-                          <td><strong><?php echo $testKitRow["kitID"]; ?></strong></td>
+                          <td><strong><?php echo 'TK'.$testKitRow["kitID"]; ?></strong></td>
                           <td><strong><?php echo $testKitRow["testName"]; ?></strong></td>
                           <td><strong><?php echo $testKitRow["availableStock"]; ?></strong></td>
                           <td><strong><?php echo $testKitRow["location"]; ?></strong></td>

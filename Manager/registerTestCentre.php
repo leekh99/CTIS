@@ -1,18 +1,22 @@
 <?php
 include_once("../includes/db.php");
+include_once('../alert.php');
+global $connection;
 if(isset($_POST['registerTC']) && ($_POST['testCentre_name']!="")){
 
   $testcentreCheck = "select * from testcentre WHERE testcentre.centreName='".$_POST['testCentre_name']."'";
-  $testCentreCheckRow = mysqli_num_rows(mysqli_query($con,$testcentreCheck));
+  $testCentreCheckRow = mysqli_num_rows(mysqli_query($connection,$testcentreCheck));
 
   if ($testCentreCheckRow>0){
     echo '<script>alert("That Test Centre already exists!")</script>';
   }
   else{
     $testCentreInsertSql="INSERT INTO `testcentre` (`centreName`) VALUES ('".$_POST['testCentre_name']."')";
-    mysqli_query($con,$testCentreInsertSql);
+    echo $testCentreInsertSql;
+    mysqli_query($connection,$testCentreInsertSql);
     $_SESSION['message']="New Test Centre Added!";
-    echo "<script>location.href= 'http://localhost/CTIS/Manager/viewManagerTestReport.php' </script>";
+    //echo "<script>location.href= 'http://localhost/CTIS/Manager/viewManagerTestReport.php' </script>";
+    header('location:viewManagerTestReport.php');
   }
 }
  ?>
@@ -74,9 +78,6 @@ if(isset($_POST['registerTC']) && ($_POST['testCentre_name']!="")){
                         <li>
                             <a href="addTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; Add Test Kit</a>
                         </li>
-                        <li>
-                            <a href="updateTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; Update Test Kit</a>
-                        </li>
                     </ul>
                 </li>
             </div>
@@ -94,19 +95,21 @@ if(isset($_POST['registerTC']) && ($_POST['testCentre_name']!="")){
             </header>
 
             <section class="py-3">
+              <form action="" enctype="multipart/form-data" method="post">
                 <div class="prompt">
                     <div class="form-group">
                         <label for="testCentre_name">Test Centre's Name</label>
                         <input type="text" class="form-control" name="testCentre_name" required autofocus>
                     </div>
-    
+
                     <div class="form-group">
-                        <button class="btn btn-primary" type="submit" name="registerTC" onclick="renderLoader()">Register Test Centre</button>
+                        <button class="btn btn-primary" type="submit" name="registerTC" method="post">Register Test Centre</button>
                     </div>
                 </div>
+              </form>
             </section>
 
-            <!-- display test centre details only when manager already registerd a test centre -->
+            <!-- display test centre details only when manager already registerd a test centre
             <section class="testCenterDetails invisible">
                 <h5 class="msg_successfull">Covid Test with ID 1 found successfully &emsp;<i class="fas fa-check-circle"></i></h5>
                 <div class="card shadow">
@@ -120,14 +123,14 @@ if(isset($_POST['registerTC']) && ($_POST['testCentre_name']!="")){
 
                 <p class="py-5"><span class="font-weight-bold" >*NOTE</span> : 1 manager can only register 1 Test Centre </p>
             </section>
+          -->
 
-            
         </div>
 
     </main>
     <footer></footer>
 
-    
+
     <script type="text/javascript" src="../views/js_admin/registerTestCentre.js"></script>
     <?php include "../includes/authentication.php"?>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

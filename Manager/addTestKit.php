@@ -6,24 +6,27 @@ if(!isset($_SESSION))
   global $connection;
   include "../includes/db.php";
   include '../alert.php';
+  include '../error-alert.php';
   $centreID = mysqli_query($connection, "SELECT workplaceID from user where username = '".$_SESSION['username']."';");
   $testKitResult = mysqli_query($connection, "SELECT * FROM testkit WHERE location='".$_SESSION['centreID']."';");
   $testKits = "SELECT * FROM testKit tk, user u, centreofficer co WHERE tk.location = co.workplaceID AND co.username = u.username AND u.username ='".$_SESSION['username']."';";
   $testKitResult = mysqli_num_rows(mysqli_query($connection, $testKits));
 
   if(isset($_POST['submit'])){
-    $testKitCheck =  "select * from testKit where testKit.testName = '".$_POST['tkName']."' and location='".$centreID."';";
-    $testKitCheckRow = mysqli_num_rows(mysqli_query($con,$testKitCheck));
+    $testKitCheck =  "select * from testKit where testKit.testName = '".$_POST['testkitName']."' and location='".$_SESSION['centreID']."';";
+    $testKitCheckRow = mysqli_num_rows(mysqli_query($connection,$testKitCheck));
     if ($testKitCheckRow>0) {
-        $_SESSION['errormessage']="The TestKit '".$_POST['tkName']."' already exists in this Test Centre! Update its Available Stock below instead!";
+        $_SESSION['errormessage']="The TestKit '".$_POST['testkitName']."' already exists in this Test Centre! Update its Available Stock instead!";
     }
     else{
-      $testKitInsertSql="INSERT INTO `testKit` (`kitID`, `testName`, `availableStock`, `location`) VALUES ('$testKitResult', '".$_POST['testkitName']."', '".$_POST['availableStock']."', '".$centreID."');";
+      //$testKitInsertSql="INSERT INTO `testKit` (`kitID`,`testName`, `availableStock`, `location`) VALUES (9,'New Test Kit', 124, 1);";
+      $testKitInsertSql="INSERT INTO `testKit` (`testName`, `availableStock`, `location`) VALUES ('".$_POST['testkitName']."', '".$_POST['availableStock']."', '".$_SESSION['centreID']."');";
+      echo $testKitInsertSql;
       mysqli_query($connection,$testKitInsertSql);
 
-      $_SESSION['message']="New TestKit '".$_POST['tkName']."' added for Test Centre ".$_SESSION['centreID']."!";
+      $_SESSION['message']="New TestKit '".$_POST['testkitName']."' added for Test Centre ".$_SESSION['centreID']."!";
     }
-    header("Refresh:0");
+  //header("Refresh:0");
   }
 ?>
 <!DOCTYPE html>
@@ -105,7 +108,7 @@ if(!isset($_SESSION))
             </header>
 
             <section class="py-5">
-                <form action="" enctype="multipart/form-data">
+                <form action="" enctype="multipart/form-data" method="post">
                     <div class="form-group">
                         <label for="testKit_name">Test Kit Name</label>
                         <input type="text" class="form-control" name="testkitName" required autofocus>

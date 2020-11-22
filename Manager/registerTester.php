@@ -1,33 +1,34 @@
 <?php
 global $connection;
-include "../includes/db.php"
+include "../includes/db.php";
+
 if(!isset($_SESSION))
 {
     session_start();
 }
 $errormsg="";
-$officerResult = mysqli_query($con,"SELECT * from user, centreofficer WHERE user.username=centreofficer.username;");
+$officerResult = mysqli_query($connection,"SELECT * from user, centreofficer WHERE user.username=centreofficer.username;");
 
-if(isset($_POST['submit'])){
-
-  $officerUsernameCheck = "select * from user,centreofficer WHERE user.username='".$_POST['username']."'  AND password='".$_POST['password']."'AND user.username=centreofficer.username;";
-  $officerUsernameCheckRow = mysqli_num_rows(mysqli_query($con,$officerUsernameCheck));
+if(isset($_POST['register_tester']) && ($_POST['tester_username']!="") && ($_POST['tester_password']!="") && ($_POST['tester_CrmPassword']!="")){
+  $officerUsernameCheck = "select * from user,centreofficer WHERE user.username='".$_POST['tester_username']."'  AND password='".$_POST['tester_password']."'AND user.username=centreofficer.username;";
+  $officerUsernameCheckRow = mysqli_num_rows(mysqli_query($connection,$officerUsernameCheck));
 
   if ($officerUsernameCheckRow>0){
     echo '<script>alert("That Username already exists!")</script>';
   }
+}
   else{
-    $userInsertSql="INSERT INTO `user` (`username`, `password`, `name`, `email`, `address`, `identificationNo`, `contactNo`) VALUES ('".$_POST['username']."', '".$_POST['password']."', '".$_POST['name']."', '".$_POST['email']."',
-      '".$_POST['address']."', '".$_POST['identificationNo']."', '".$_POST['contactNo']."');";
-    mysqli_query($con,$userInsertSql);
-    $centreofficerInsertSql="INSERT INTO `centreofficer` (`username`, `position`, `workplace`) VALUES ('".$_POST['username']."', 'Tester', '".$_SESSION['testcentre']."');";
-    mysqli_query($con,$userInsertSql);
-    mysqli_query($con,$centreofficerInsertSql);
+    $userInsertSql="INSERT INTO `user` (`username`, `password`, `name`) VALUES ('".$_POST['tester_username']."', '".$_POST['tester_password']."', '".$_POST['tester_name']."');";
+    echo $userInsertSql;
+    mysqli_query($connection,$userInsertSql);
+    $centreofficerInsertSql="INSERT INTO `centreofficer` (`username`, `position`, `workplace`) VALUES ('".$_POST['username']."', 'Tester', '".$_SESSION['centreID']."');";
+    echo $centreofficerInsertSql;
+    mysqli_query($connection,$userInsertSql);
+    mysqli_query($connection,$centreofficerInsertSql);
     $_SESSION['message']="New User and Tester accounts created successfully!.";
   }
-}
 //alert message
-include_once("alert.php");
+include_once("../alert.php");
 
 ?>
 <!DOCTYPE html>
@@ -87,9 +88,6 @@ include_once("alert.php");
                         <li>
                             <a href="addTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; Add Test Kit</a>
                         </li>
-                        <li>
-                            <a href="updateTestKit.php" class="list-group-item list-group-item-action bg-light">&emsp; Update Test Kit</a>
-                        </li>
                     </ul>
                 </li>
             </div>
@@ -108,7 +106,7 @@ include_once("alert.php");
             </header>
 
             <section class="py-4">
-                <form action="" enctype="multipart/form-data">
+                <form action="" enctype="multipart/form-data" method="post">
                   <div class="form-group">
                       <label for="tester_username">Tester's Username</label>
                       <input type="text" class="form-control" name="tester_username" required autofocus>
