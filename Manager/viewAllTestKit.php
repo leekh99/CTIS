@@ -7,7 +7,7 @@ include_once( "../includes/db.php");
 global $connection;
 $testKits = "SELECT * FROM testkit tk, user u, centreofficer co WHERE tk.testCentreID = co.workplaceID AND co.username = u.username AND u.username ='".$_SESSION['username']."';";
 $testKitResult = mysqli_query($connection, $testKits);
-
+echo $connection->error;
 ?>
 <!DOCTYPE html>
 <html lang="en">

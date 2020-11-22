@@ -13,14 +13,14 @@ if(!isset($_SESSION))
   $testKitResult = mysqli_num_rows(mysqli_query($connection, $testKits));
 
   if(isset($_POST['submit'])){
-    $testKitCheck =  "select * from testkit where testKit.testName = '".$_POST['testkitName']."' and location='".$_SESSION['centreID']."';";
+    $testKitCheck =  "select * from testkit where testKit.testName = '".$_POST['testkitName']."' and testCentreID='".$_SESSION['centreID']."';";
     $testKitCheckRow = mysqli_num_rows(mysqli_query($connection,$testKitCheck));
     if ($testKitCheckRow>0) {
         $_SESSION['errormessage']="The TestKit '".$_POST['testkitName']."' already exists in this Test Centre! Update its Available Stock instead!";
     }
     else{
       //$testKitInsertSql="INSERT INTO `testKit` (`kitID`,`testName`, `availableStock`, `location`) VALUES (9,'New Test Kit', 124, 1);";
-      $testKitInsertSql="INSERT INTO `testkit` (`testName`, `availableStock`, `location`) VALUES ('".$_POST['testkitName']."', '".$_POST['availableStock']."', '".$_SESSION['centreID']."');";
+      $testKitInsertSql="INSERT INTO `testkit` (`testName`, `availableStock`, `testCentreID`) VALUES ('".$_POST['testkitName']."', '".$_POST['availableStock']."', '".$_SESSION['centreID']."');";
       echo $testKitInsertSql;
       mysqli_query($connection,$testKitInsertSql);
 
