@@ -1,7 +1,7 @@
 <?php
 include_once( "../includes/db.php");
 global $connection;
-$testKits = "SELECT kitID, testName, availableStock FROM testKit tk, user u, centreofficer co WHERE tk.location = co.workplaceID AND co.username = u.username AND u.username ='".$_SESSION['username']."';";
+$testKits = "SELECT kitID, testName, availableStock, location FROM testKit tk, user u, centreofficer co WHERE tk.location = co.workplaceID AND co.username = u.username AND u.username ='".$_SESSION['username']."';";
 $testKitResult = mysqli_query($connection, $testKits);
 ?>
 <!DOCTYPE html>
