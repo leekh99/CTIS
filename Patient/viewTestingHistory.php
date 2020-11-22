@@ -1,3 +1,4 @@
+<?php include "../includes/db.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +31,7 @@
                 </button>
                  <!-- account menu -->
                 <aside class="collapse dropdown-menu dropdown-menu-right bg-light" id="accountMenu" >
-                    <a href="../login.html" class="dropdown-item bg-light">Logout</a>
+                    <a href="../login.php" class="dropdown-item bg-light">Logout</a>
                 </aside>
             </div>
 
@@ -70,13 +71,13 @@
                             <div class="col-md-6 col-xs-12 py-3">
                                 <div class="card shadow ">
                                     <div class="card-body">
-                                      <h5 class="card-title font-weight-bold">Patient Type</h5>
+                                      <h5 class="card-title font-weight-bold">Test Status</h5>
                                       <p class="card-text">
                                         <div id="piechart" class="p-3"></div>
                                       </p>
                                     </div>
                                     <div class="card-footer"><i class="far fa-clock"></i> Last updated :
-                                        <time> 19/10/2020 </time>
+                                        <time> <?php echo date("d/m/y") ?> </time>
                                     </div>
                                   </div>
                             </div>
@@ -84,31 +85,15 @@
                             <div class="col-md-6 col-xs-12 py-3">
                               <div class="card shadow ">
                                 <div class="card-body">
-                                  <h5 class="card-title font-weight-bold">Test Status</h5>
+                                  <h5 class="card-title font-weight-bold">Test Result</h5>
                                   <p class="card-text">
                                       <div id="barchart" class="p-3"></div>
                                   </p>
                                 </div>
                                 <div class="card-footer"><i class="far fa-clock"></i> Last updated :
-                                    <time> 19/10/2020 </time>
+                                    <time> <?php echo date("d/m/y") ?> </time>
                                 </div>
                               </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card shadow">
-                                    <div class="card-body">
-                                      <h5 class="card-title font-weight-bold">Test Recorded on a Daily Basis</h5>
-                                      <p class="card-text">
-                                          <div id="linechart" class="p-3"></div>
-                                      </p>
-                                    </div>
-                                    <div class="card-footer"><i class="far fa-clock"></i> Last updated :
-                                        <time> 19/10/2020 </time>
-                                    </div>
-                                  </div>
                             </div>
                         </div>
 
@@ -116,48 +101,57 @@
 
 
                     <section class="tab-pane py-3 fade" id="table-test" role="tabpanel" aria-labelledby="table-tab">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">CovidTestID</th>
-                                    <th scope="col">Tester</th>
-                                    <th scope="col">TestType</th>
-                                    <th scope="col">TestDate</th>
-                                    <th scope="col">Result</th>
-                                    <th scope="col">ResultDate</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <th scope="row">CT1</th>
-                                <td>Dr.Tan</td>
-                                <td>Rapid Detection</td>
-                                <td>11/10/2020</td>
-                                <td>Negative</td>
-                                <td>12/10/2020</td>
-                                <td>Completed</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">CT5</th>
-                                <td>Dr.Tan</td>
-                                <td>Rapid Detection</td>
-                                <td>16/10/2020</td>
-                                <td>Negative</td>
-                                <td>17/10/2020</td>
-                                <td>Completed</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">CT9</th>
-                                <td>Dr.Tan</td>
-                                <td>Molecular</td>
-                                <td>23/10/2020</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>Pending</td>
-                                </tr>
-                            </tbody>
-                          </table>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">CovidTestID</th>
+                                        <th scope="col">Tester</th>
+                                        <th scope="col">TestDate</th>
+                                        <th scope="col">Result</th>
+                                        <th scope="col">ResultDate</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                    global $connection;
+                                    $patient = $_SESSION['username'];
+
+
+                                    $query = "SELECT * FROM covidtest WHERE recipient = '$patient'";
+                                    $selectTest = mysqli_query($connection, $query);
+                                    
+                                    while($row = mysqli_fetch_assoc($selectTest)){
+                                        $testID = $row['testID'];
+                                        $testDate = $row['testDate'];
+                                        $status = $row['status'];
+                                        $result = $row['result'];
+                                        $resultDate = $row['resultDate'];
+                                        $tester = $row['tester'];
+                                        
+
+                                        echo "<tr>";
+                                        echo " <th scope='row'>CT{$testID}</th>";
+                                        echo " <td>$tester</td>";
+                                        echo " <td>$testDate</td>";
+                                        if ($result === null)
+                                            echo " <td>-</td>";
+                                        else 
+                                            echo " <td>$result</td>";
+
+                                        if ($resultDate === null)
+                                            echo " <td>-</td>";
+                                        else
+                                            echo " <td>$resultDate</td>";
+                                        echo " <td>$status</td>";
+                                        echo "</tr>";
+                                    }
+
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </section>
                 </div>
             </section>
@@ -175,7 +169,8 @@
     <footer></footer>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="../views/js_patient/viewTestHistory.js"></script>
+    <?php include "../views/js_patient/viewTestHistory.php" ?>
+    <?php include "../includes/authentication.php"?>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

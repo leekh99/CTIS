@@ -47,6 +47,7 @@
                 <a href="#" class="list-group-item list-group-item-action bg-light highlight">Record New Test</a>
                 <a href="updateTest.php" class="list-group-item list-group-item-action bg-light">Update Test Result</a>
                 <a href="viewTestReport.php" class="list-group-item list-group-item-action bg-light">Generate Test Report</a>
+                <a href="allPatient.php" class="list-group-item list-group-item-action bg-light">Display Patient Details</a>
             </div>
         </aside>
 

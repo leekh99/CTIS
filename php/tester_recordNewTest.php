@@ -17,6 +17,7 @@ if (isset($_POST['create_add_test'])){
         elements.testForm.className = 'collapse show';
         elements.patientUsername.setCustomValidity('Duplicate username ! Please try input another username.');
         renderMessage('Duplicate username ! Please try input another username', false, '');
+        elements.patientUsername.value = '';
         </script>
         ";        
     } else {
@@ -84,6 +85,7 @@ if (isset($_POST['add_test'])){
         <script>
         elements.addPatientUsername.setCustomValidity('Please try input another username ');
         renderMessage(`Cannot find patient in databse. Please try again !`, false, '');
+        elements.addPatientUsername.value = '';
         </script>
         ";        
     } else {

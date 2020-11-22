@@ -47,6 +47,7 @@
                 <a href="recordTest.php" class="list-group-item list-group-item-action bg-light">Record New Test</a>
                 <a href="updateTest.php" class="list-group-item list-group-item-action bg-light">Update Test Result</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light highlight">Generate Test Report</a>
+                <a href="allPatient.php" class="list-group-item list-group-item-action bg-light">Display Patient Details</a>
             </div>
         </aside>
 
@@ -129,36 +130,68 @@
 
 
                     <section class="tab-pane py-3 fade" id="table-test" role="tabpanel" aria-labelledby="table-tab">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                </tr>
-                            </tbody>
-                          </table>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <?php 
+                                     global $connection;
+                                     $centreID = $_SESSION['centreID'];
+                                     $tester = $_SESSION['username'];
+ 
+ 
+                                     $query = "SELECT * FROM covidtest WHERE centreID = $centreID";
+                                     $selectCentreID = mysqli_query($connection, $query);
+
+                                     if ($selectCentreID->num_rows == 0){
+                                        echo "<h2 class='text-muted text-center'>No Test Has been Taken Yet</h2>";
+                                     } else {
+                                ?>
+                                <thead class="thead-dark">
+                                    <tr>
+                                    <th scope="col">TestID</th>
+                                    <th scope="col">Test Taken (Date)</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Result</th>
+                                    <th scope="col">Result Date</th>
+                                    <th scope="col">Recipient</th>
+                                    <th scope="col">Tester</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php 
+                                   
+
+                                    while($row = mysqli_fetch_assoc($selectCentreID)){
+                                        $testID = $row['testID'];
+                                        $testDate = $row['testDate'];
+                                        $status = $row['status'];
+                                        $result = $row['result'];
+                                        $resultDate = $row['resultDate'];
+                                        $recipient = $row['recipient'];
+                                        $tester = $row['tester'];
+                                        
+
+                                        echo "<tr>";
+                                        echo " <th scope='row'>CT{$testID}</th>";
+                                        echo " <td>$testDate</td>";
+                                        echo " <td>$status</td>";
+                                        if ($result === null)
+                                            echo " <td>-</td>";
+                                        else 
+                                            echo " <td>$result</td>";
+
+                                        if ($resultDate === null)
+                                            echo " <td>-</td>";
+                                        else
+                                            echo " <td>$resultDate</td>";
+                                        echo " <td>$recipient</td>";
+                                        echo " <td>$tester</td>";
+                                        echo "</tr>";
+                                    }
+                                ?>
+                                </tbody>
+                        <?php } ?>
+                            </table>
+                        </div>
                     </section>
                 </div>
             </section>

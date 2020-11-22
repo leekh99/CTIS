@@ -14,6 +14,8 @@
     <!-- local files -->
     <link rel="shortcut icon" href="../img/ctisIcon_noBackgroundV2.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/recordTest.css">
+
 </head>
 <body>
     <nav id="container page-content-wrapper">
@@ -47,6 +49,7 @@
                 <a href="recordTest.php" class="list-group-item list-group-item-action bg-light">Record New Test</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light highlight">Update Test Result</a>
                 <a href="viewTestReport.php" class="list-group-item list-group-item-action bg-light">Generate Test Report</a>
+                <a href="allPatient.php" class="list-group-item list-group-item-action bg-light">Display Patient Details</a>
             </div>
         </aside>
 
@@ -62,13 +65,71 @@
                 </nav>
             </header>
 
+            <!-- List of test -->
+            <h5 class="py-3">Find Covid Test ID from table ?  &emsp;
+                <label class="switch">
+                    <input id="chkForm" type="checkbox" data-toggle="collapse" href="#covidTest-form">
+                    <span class="slider round"></span>
+                </label>  
+            </h5>
+
+
+            <div class="collapse" id="covidTest-form">
+                <section class="py-2">
+                    <h3>Please select a test kit to record a test :</h3> <br>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                <th scope="col">TestID</th>
+                                <th scope="col">Test Taken (Date)</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Select Covid Test to Update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <?php 
+                                    global $connection;
+                                    $centreID = $_SESSION['centreID'];
+                                    $tester = $_SESSION['username'];
+
+
+                                    $query = "SELECT * FROM covidtest WHERE tester = '$tester' AND centreID = $centreID";
+                                    $selectCentreID = mysqli_query($connection, $query);
+
+                                    while($row = mysqli_fetch_assoc($selectCentreID)){
+                                        $testID = $row['testID'];
+                                        $testDate = $row['testDate'];
+                                        $status = $row['status'];
+
+
+                                        echo "<tr>";
+                                        echo " <th scope='row'>CT{$testID}</th>";
+                                        echo " <td>$testDate</td>";
+                                        echo " <td>$status</td>";
+                                        if ($status === 'complete')
+                                            echo "<td>Already Completed</td>";
+                                        else {
+                                            echo " <td><a href='updateTest.php?testID=CT{$testID}'>Select</a></td>";
+                                        }
+
+                                        echo "</tr>";
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
 
             <!-- add Tester for Test ID -->
             <section class="py-3">
                 <form action="" id="generateForm" enctype="multipart/form-data" method="POST">
                     <div class="form-group">
                         <label for="covidTest_id">Covid Test ID</label>
-                        <input type="text" class="form-control" name="covidTest_id" id="inputTestID" required autofocus>
+                        <input type="text" class="form-control" name="covidTest_id" value="<?php if(isset($_GET['testID'])) echo $_GET['testID']?>" id="inputTestID" required autofocus>
                         <label id="displayMessage" class="text-danger"></label>
                     </div>
                     <div class="form-group">
@@ -90,6 +151,7 @@
                     $status = $row['status'];
                     $patient = $row['recipient'];
                 }
+
             }  ?>
 
             <section id="testDetails">

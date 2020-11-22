@@ -35,7 +35,6 @@ if (isset($_POST['btnLogin'])){
                     $patientType = $row['patientType'];
                     $symptoms = $row['symptoms'];
                                         
-                    
                    $_SESSION['position']= 'patient';
                    echo "<script>login(true, '$username', 'patient');</script>";
                 }

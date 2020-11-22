@@ -10,6 +10,8 @@ if(isset($_POST['generate_test'])){
 
     echo "
     <script> 
+    
+        elements.inputTestID.value = '';
         elements.generateForm.addEventListener('submit', renderLoader() ); 
         clearLoader($selectTest->num_rows);    
     </script>";

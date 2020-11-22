@@ -63,7 +63,7 @@
                 break;
 
             case "patient":
-                window.location = windowUrl(`Patient/viewTestingHistory.html?check=` + elements.checkRememberUser.checked);
+                window.location = windowUrl(`Patient/viewTestingHistory.php?check=` + elements.checkRememberUser.checked);
                 break;
 
         }

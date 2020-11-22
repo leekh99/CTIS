@@ -68,7 +68,7 @@ const renderMessage = (message, success, location) => {
                                 elements.switch.insertAdjacentHTML('afterbegin', errorMessage);
     }
 
-    setTimeout(clearMessage, 3500);
+    setTimeout(clearMessage, 3800);
     if (success)
         setTimeout(() => {
             window.location.href = 'http://localhost/CTIS/Tester/recordTest.php';

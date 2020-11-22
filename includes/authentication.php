@@ -29,4 +29,16 @@ if (isset($_SESSION['username'])){
     location.href =  'http://localhost/CTIS/login.php';
     </script>";
 }
+
+if (isset($_SESSION['position'])){
+    $position = strtoupper($_SESSION['position']);
+    $checkUrL = strtoupper($_SERVER['REQUEST_URI']);
+
+    if (!strpos($checkUrL, $position)){
+        echo "
+        <script>
+        location.href =  'http://localhost/CTIS/login.php';
+        </script>";
+    }
+}
  ?>
