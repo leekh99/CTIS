@@ -5,11 +5,11 @@
     }
 
 
-    const renderMessage = (success, username) => {
+    const renderMessage = (success, username, message) => {
         
         const renderSuccess = 
             `<h5 class="msg_successfull" id="msg">Manager with username 
-                <span class="text-dark">${username}</span> &emsp; is addded successfully &emsp;
+                <span class="text-dark">${username}</span> is addded successfully &emsp;
                 <i class="fas fa-check-circle"></i>
             </h5>`;
 
@@ -20,10 +20,19 @@
                     <i class="fas fa-times-circle"></i>
                 </h5>`;
 
-        if (success)
-            elements.addManagerSection.insertAdjacentHTML('afterbegin',renderSuccess);
-        else 
-            elements.addManagerSection.insertAdjacentHTML('afterbegin',renderFailure);
+        const temp = `<h5 class="msg_error" id="msg">${message} &emsp;
+                    <i class="fas fa-times-circle"></i>
+                </h5>`;
+
+        if (message != ''){
+            elements.addManagerSection.insertAdjacentHTML('afterbegin',temp);
+        } else {
+            if (success)
+                elements.addManagerSection.insertAdjacentHTML('afterbegin',renderSuccess);
+            else 
+                elements.addManagerSection.insertAdjacentHTML('afterbegin',renderFailure);
+        }
+        
 
         setTimeout(clearMessage, 3500);
     };
@@ -67,19 +76,28 @@
 <?php 
 if (isset($_POST['add_test'])){
     $username = $_POST['manager_username'];
-    $result = addManager();
+
+    if (checkUsername($username)>0){
+        echo "
+        <script> 
+            renderMessage(false, '$username', 'Duplicate username ! Please try another username !');
+        </script>";
+    } else {
+        $result = addManager();
     
-    if ($result == 1)
-        $result = 'true';
-    else 
-        $result = 'false';
 
-
-    echo "
-    <script> 
-        renderMessage($result, '$username');
-        
-    </script>";
+        if ($result == 1)
+            $result = 'true';
+        else 
+            $result = 'false';
+    
+    
+        echo "
+        <script> 
+            renderMessage($result, '$username', '');
+            
+        </script>";
+    }
 }
 ?>
 
