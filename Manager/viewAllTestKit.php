@@ -1,6 +1,8 @@
 <?php
-include "../includes/db.php"
-  $testKitResult = mysqli_query($con, "SELECT * FROM testkit WHERE location='".$_SESSION['testcentre']."';");
+include_once( "../includes/db.php");
+global $connection;
+$testKits = "SELECT kitID, testName, availableStock, location FROM testKit tk, user u, centreofficer co WHERE tk.location = co.workplaceID AND co.username = u.username AND u.username ='".$_SESSION['username']."';";
+$testKitResult = mysqli_query($connection, $testKits);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,23 +89,20 @@ include "../includes/db.php"
                         <th scope="col">KitID</th>
                         <th scope="col">Kit Name</th>
                         <th scope="col">Available Stock</th>
+                        <th scope="col">Test Kit Location</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                           $j=0;
-                          while($testKitRow=mysqli_fetch_array($testKitResult)){ ?>
+                          while($testKitRow=mysqli_fetch_assoc($testKitResult)){
+                            ?>
                         <tr>
-                          <th scope="row"><?php echo($j+1) ?></th>
                           <td><strong><?php echo $testKitRow["kitID"]; ?></strong></td>
                           <td><strong><?php echo $testKitRow["testName"]; ?></strong></td>
                           <td><strong><?php echo $testKitRow["availableStock"]; ?></strong></td>
                           <td><strong><?php echo $testKitRow["location"]; ?></strong></td>
 
-                          <td>
-                            <!--<button type="button" class="btn btn-dark">New Test</button>-->
-                            <a class="btn btn-dark" href='officer-UpdateTestKitStock.php?testName=<?php echo $testKitRow["testName"]; ?>'><strong>Update Stock</strong></a>
-                          </td>
                         </tr>
                         <?php
                         $j++;}
