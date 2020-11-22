@@ -10,22 +10,21 @@ $errormsg="";
 $officerResult = mysqli_query($connection,"SELECT * from user, centreofficer WHERE user.username=centreofficer.username;");
 
 if(isset($_POST['register_tester']) && ($_POST['tester_username']!="") && ($_POST['tester_password']!="") && ($_POST['tester_CrmPassword']!="")){
-
   $officerUsernameCheck = "select * from user,centreofficer WHERE user.username='".$_POST['tester_username']."'  AND password='".$_POST['tester_password']."'AND user.username=centreofficer.username;";
   $officerUsernameCheckRow = mysqli_num_rows(mysqli_query($connection,$officerUsernameCheck));
 
   if ($officerUsernameCheckRow>0){
     echo '<script>alert("That Username already exists!")</script>';
-  }else{
-    $userInsertSql="INSERT INTO `user` (`username`, `password`, `name`) VALUES ('".$_POST['tester_username']."', '".$_POST['tester_password']."', '".$_POST['tester_name']."');";
-    echo $userInsertSql;
+  }
+}
+  else{
+      $userInsertSql="INSERT INTO `user` (`username`, `password`, `name`) VALUES ('".$_POST['tester_username']."', '".$_POST['tester_password']."', '".$_POST['tester_name']."');";
     mysqli_query($connection,$userInsertSql);
-    $centreofficerInsertSql="INSERT INTO `centreofficer` (`username`, `position`, `workplaceID`) VALUES ('".$_POST['tester_username']."', 'tester', '".$_SESSION['centreID']."');";
-    echo $centreofficerInsertSql;
+    $centreofficerInsertSql="INSERT INTO `centreofficer` (`username`, `position`, `workplace`) VALUES ('".$_POST['username']."', 'Tester', '".$_SESSION['centreID']."');";
+    mysqli_query($connection,$userInsertSql);
     mysqli_query($connection,$centreofficerInsertSql);
     $_SESSION['message']="New User and Tester accounts created successfully!.";
   }
-}
 //alert message
 include_once("../alert.php");
 
