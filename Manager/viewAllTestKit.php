@@ -108,7 +108,7 @@ echo $connection->error;
                           <td><strong><?php echo 'TK'.$testKitRow["kitID"]; ?></strong></td>
                           <td><strong><?php echo $testKitRow["testName"]; ?></strong></td>
                           <td><strong><?php echo $testKitRow["availableStock"]; ?></strong></td>
-                          <td><strong><?php echo $testKitRow["location"]; ?></strong></td>
+                          <td><strong><?php echo $testKitRow["testCentreID"]; ?></strong></td>
                           <td>
                             <!--<button type="button" class="btn btn-dark">New Test</button>-->
                             <a class="btn btn-primary" href='updateTestKit.php?testName=<?php echo $testKitRow["testName"];?>&kitID=<?php echo $testKitRow["kitID"]?>'><strong>Update Stock</strong></a>

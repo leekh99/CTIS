@@ -8,7 +8,7 @@ include '../alert.php';
   $_SESSION['secondPage']="<b>Updating Test Kit Stock</b>";
   include_once("../includes/db.php");
   if (isset($_GET['testName'])){
-    $testkitResult=mysqli_query($connection,"SELECT * FROM testkit WHERE location='".$_SESSION['centreID']."' AND testkit.kitID='".$_GET['kitID']."';");
+    $testkitResult=mysqli_query($connection,"SELECT * FROM testkit WHERE testCentreID='".$_SESSION['centreID']."' AND testkit.kitID='".$_GET['kitID']."';");
   }
   $testCentreResult=mysqli_query($connection,"SELECT * FROM testcentre WHERE centreID='".$_SESSION['centreID']."';");
   if(isset($_POST['submit'])){
