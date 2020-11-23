@@ -111,7 +111,7 @@ include '../alert.php';
                       <div class="col-md-4">
                         <div class="form-group">
                           <label>Test Centre ID</label>
-                          <input type="text" name="testcentre" class="form-control"  value="<?php echo $_SESSION['testcentre']; ?>" disabled>
+                          <input type="text" name="testcentre" class="form-control"  value="<?php echo $_SESSION['centreID']; ?>" disabled>
                         </div>
                       </div>
                       <div class="col-md-8">
